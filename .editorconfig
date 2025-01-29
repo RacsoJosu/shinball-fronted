@@ -1,0 +1,26 @@
+# EditorConfig es un archivo de configuración para mantener estilos de codificación consistentes en proyectos.
+
+# Reglas globales
+root = true
+
+# Reglas para archivos de texto y código
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Reglas específicas para archivos con extensión .js
+[*.js]
+indent_size = 2
+quote_type = single
+
+# Reglas específicas para archivos con extensión .json
+[*.json]
+indent_size = 2
+
+# Reglas específicas para archivos con extensión .md (Markdown)
+[*.md]
+max_line_length = 80
