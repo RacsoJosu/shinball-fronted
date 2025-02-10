@@ -8,6 +8,8 @@ function RootLayout() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleSidebar = () => setIsCollapsed((prev) => !prev);
   return (
+
+
     <div className="flex w-full">
       <nav
         className={`h-[100vh]   transition-all duration-500 ease-in-out overflow-hidden poppins-normal  ${
@@ -35,7 +37,7 @@ function RootLayout() {
             }
           />
           {!isCollapsed && (
-            <span className="font-semibold text-sky-900 max-sm:hidden md:text-lg transition-opacity duration-500 ease-out delay-500">
+            <span className="font-semibold text-sky-800 max-sm:hidden md:text-lg transition-opacity duration-500 ease-out delay-500">
               Admin Shinball
             </span>
           )}
