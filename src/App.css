@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import "tailwindcss";
-@import "tailwindcss";
 
 @theme {
+  /* Breakpoints */
   --breakpoint-xs: 30rem;
   --breakpoint-sm: 48rem;
   --breakpoint-md: 64rem;
@@ -11,16 +11,41 @@
   --breakpoint-2xl: 100rem;
   --breakpoint-3xl: 120rem;
 
-
+  /* Tamaños de texto */
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
+  --text-md: 0.975rem;
+
   --text-base: 1rem;
   --text-lg: 1.125rem;
   --text-xl: 1.25rem;
+
+  /* Paleta de colores personalizada */
+  --color-primary-100: #b3d9f2;
+  --color-primary-200: #58a8d6;
+  --color-primary-300: #036ea6;
+  --color-primary-400: #024a70;
+  --color-primary-500: #01334d;
+
+  --color-complementary-100: #f2d9b3;
+  --color-complementary-200: #d68a58;
+  --color-complementary-300: #a64f03;
+  --color-complementary-400: #703802;
+  --color-complementary-500: #4d2601;
+
+  --color-accent-100: #ffe0d6;
+  --color-accent-200: #ffb399;
+  --color-accent-300: #ff6b35;
+  --color-accent-400: #cc552a;
+  --color-accent-500: #993f20;
+
+  --color-neutral-100: #ffffff;
+  --color-neutral-200: #f0f0f0;
+  --color-neutral-300: #cccccc;
+  --color-neutral-400: #999999;
+  --color-neutral-500: #333333;
 }
-
-
-:root{
+:root {
   font-family: "Poppins", serif;
   font-weight: 400;
   font-style: normal;
@@ -44,7 +69,6 @@
   font-style: normal;
   background-color: rgb(94, 98, 105);
 }
-
 
 .poppins-medium {
   font-family: "Poppins", serif;

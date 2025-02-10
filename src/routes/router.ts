@@ -24,9 +24,9 @@ const Productos = lazy(() => import("../features/productos/page/productos"));
 export const routes: Route[] = [
   {
     Component:Dashboard ,
-    to: "/dashboard",
+    to: "/",
     name: "Dashboard",
-    path: "dashboard",
+    path: "",
     Icon: MdSpaceDashboard,
     index: true
 

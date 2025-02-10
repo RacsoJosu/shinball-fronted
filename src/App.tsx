@@ -1,8 +1,13 @@
 import Navigation from "@/routes/navigation"
 import "@/App.css"
+import TanstackQueryProvider from "./providers/tanstack-query-provider"
 function App() {
   return (
-    <Navigation/>
+    <TanstackQueryProvider>
+
+      <Navigation/>
+
+    </TanstackQueryProvider>
   )
 }
 
