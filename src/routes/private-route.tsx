@@ -1,20 +1,8 @@
-import { useAuth } from "@/features/auth/hooks/useAuth"
-import { PropsWithChildren } from "react"
-import { Navigate } from "react-router-dom"
+import { Outlet } from "react-router-dom";
 
-function PrivateRoute({ children }: PropsWithChildren<{}>) {
-  const { user } = useAuth()
+function PrivateRoute() {
 
-  if (!user?.isLogged) {
-    return <Navigate to="/login" />
-
-  }
-
-
-
-  return (
-    <div>{ children}</div>
-  )
+  return <Outlet />;
 }
 
-export default PrivateRoute
+export default PrivateRoute;
