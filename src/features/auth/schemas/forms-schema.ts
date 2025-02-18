@@ -16,3 +16,8 @@ export const signUpSchema = z.object({
   birthdate: z.date({message:"Ingresa una fecha valida"}).max(new Date(),{message: "La fecha de nacimiento no puede ser mayor a la fecha actual"}),
 
 }).and(passwordSchema)
+export const loginUserSchema = z.object({
+    email: z.string().email({message: "El valor ingresado no es un email"}),
+    password: z.string().min(8, {message: "La contraseña debe tener un minimo de 8 caracteres"})
+
+})

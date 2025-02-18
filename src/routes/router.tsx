@@ -6,9 +6,12 @@ import { lazy, LazyExoticComponent } from "react";
 import Login from "@/features/auth/page/login";
 import SignUp from "@/features/auth/page/sign-up";
 import RootLayout from "@/layout";
-import PrivateRoute from "./private-route";
-import { createBrowserRouter, Navigate } from "react-router-dom";
+
+import { createBrowserRouter, LoaderFunction } from "react-router-dom";
 import { AuthLoader } from "@/features/auth/loaders/loader-auth";
+import ErrorBoundary from "@/shared/components/error-boundary";
+import NotFound from "@/shared/components/not-found";
+import { InfoUserType } from "@/features/auth/services/auth-services";
 
 const Dashboard = lazy(() => import("../features/dashboard/page/dashboard"));
 const Productos = lazy(() => import("../features/productos/page/productos"));
@@ -28,9 +31,9 @@ interface Route {
 export const routes: Route[] = [
   {
     Component: Dashboard,
-    to: "/",
+    to: "/dashboard",
     name: "Dashboard",
-    path: "",
+    path: "dashboard",
     Icon: MdSpaceDashboard,
     index: true,
   },
@@ -56,18 +59,14 @@ export const router = createBrowserRouter(
     },
     {
       path: "/",
-      element: <PrivateRoute />, // Protegemos las rutas dentro de PrivateRoute
-      loader: AuthLoader,
-      children: [
-        {
-          element: <RootLayout />,
-          children: routes,
-        },
-      ],
+      loader: AuthLoader as LoaderFunction<InfoUserType>,
+      children: routes,
+      element: <RootLayout />,
+      errorElement: <ErrorBoundary />
     },
     {
       path: "*",
-      element: <Navigate to="/" />,
+      element:<NotFound/>
     },
   ],
   {
