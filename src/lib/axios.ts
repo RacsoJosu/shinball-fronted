@@ -1,5 +1,24 @@
-import axios from "axios"
+import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
+
+export type ApiError = AxiosError<ApiErrorResponse>;
+export interface ApiSuccessResponse<T> {
+  statusCode: number;
+  title: string;
+  message: string;
+  success: boolean;
+  data: T;
+}
+
+export interface ApiErrorResponse<T = null> {
+  statusCode: number;
+  title: string;
+  details: string;
+  success: false;
+  data?: T;
+  stack?: string | null;
+}
+
 const axiosIntance = axios.create({
   baseURL: import.meta.env.VITE_SHINBALL_API,
   withCredentials: true,
@@ -25,4 +44,5 @@ axiosIntance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
 export default axiosIntance;

@@ -48,7 +48,7 @@ type InputTypeProps = {
   className?: string;
 };
 
-export function Input({
+export function InputForm({
   type,
   register,
   placeholder,

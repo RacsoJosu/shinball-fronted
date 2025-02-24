@@ -1,23 +1,21 @@
-import axiosIntance from "@/lib/axios";
+import axiosIntance, { ApiSuccessResponse } from "@/lib/axios";
 import { z } from "zod";
 import { loginUserSchema } from "../schemas/forms-schema";
-import { InfoUser } from "@/stores/auth.store";
-export interface InfoUserType {
-  token: string;
-  infoUser: InfoUser;
-}
-export interface ResponseInfoUser {
-  message: string;
-  title: string;
-  data: InfoUserType;
-}
+import { InfoUserType } from "@/stores/auth.store";
+
+
 
 export async function Login(body: z.infer<typeof loginUserSchema>) {
-  return await axiosIntance.post<ResponseInfoUser>("auth/login", {
+  return await axiosIntance.post<ApiSuccessResponse<null>>("auth/login", {
     ...body,
   });
 }
 
+
+export async function Logout() {
+  return await axiosIntance.post<ApiSuccessResponse<null>>("auth/logout");
+}
+
 export async function getInfoAuthUser() {
-  return await axiosIntance.get<ResponseInfoUser>("auth/me");
+  return await axiosIntance.get<ApiSuccessResponse<InfoUserType>>("auth/me");
 }

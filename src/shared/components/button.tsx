@@ -15,10 +15,11 @@ export function Button({ type, label, onClick, className, children, ...rest }: B
       {...rest}
       onClick={onclick ? onClick : undefined}
       type={type}
-      className={cn(`w-full cursor-pointer mt-2 hover:bg-primary-500 bg-primary-400 text-white p-2.5 rounded-md shadow-md`, className)}
+      className={cn(`w-full flex justify-center gap-4 cursor-pointer mt-2 hover:bg-primary-500 bg-primary-400 text-white p-2.5 rounded-md shadow-md`, className)}
     >
 
-      {label ? label : children}
+      {label ? label : null}
+      {children}
     </button>
   );
 }

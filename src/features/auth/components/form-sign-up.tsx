@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema } from "../schemas/forms-schema";
-import { FormField, Input, Label } from "@/shared/components/form.components";
+import { FormField, InputForm, Label } from "@/shared/components/form.components";
 import { Button } from "@/shared/components/button";
 
 function FormSignUp() {
@@ -40,7 +40,7 @@ function FormSignUp() {
 
             />
 
-            <Input
+            <InputForm
               type="text"
               placeholder="Joe"
               register={register("firstName")}
@@ -55,7 +55,7 @@ function FormSignUp() {
               key={"apellido"}
 
             />
-            <Input
+            <InputForm
               type="text"
               placeholder="Doe"
               register={register("lastName")}
@@ -71,7 +71,7 @@ function FormSignUp() {
               key={"email"}
 
             />
-          <Input
+          <InputForm
             className="w-full"
             type="email"
             placeholder="prueba@email.com"
@@ -86,7 +86,7 @@ function FormSignUp() {
               key={"Fecha de nacimiento"}
 
             />
-          <Input
+          <InputForm
             className="w-full"
             type="date"
             placeholder="Fecha de nacimiento"
@@ -102,7 +102,7 @@ function FormSignUp() {
               key={"contraseña"}
 
             />
-        <Input
+        <InputForm
           className="w-full"
           type="password"
           placeholder="Escribe la contraseña"
@@ -117,7 +117,7 @@ function FormSignUp() {
               key={"confirmar contraseña"}
 
             />
-          <Input
+          <InputForm
             className="w-full"
             type="password"
             placeholder="Confirma la contraseña"

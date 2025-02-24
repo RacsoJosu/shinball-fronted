@@ -1,17 +1,17 @@
-import { MdSpaceDashboard } from "react-icons/md";
+import { MdSpaceDashboard, } from "react-icons/md";
 import { IoMdCart } from "react-icons/io";
 import { IconType } from "react-icons";
-
+import { HiUsers } from "react-icons/hi2";
 import { lazy, LazyExoticComponent } from "react";
 import Login from "@/features/auth/page/login";
 import SignUp from "@/features/auth/page/sign-up";
 import RootLayout from "@/layout";
 
 import { createBrowserRouter, LoaderFunction } from "react-router-dom";
-import { AuthLoader } from "@/features/auth/loaders/loader-auth";
+import { authLoader } from "@/features/auth/loaders/loader-auth";
 import ErrorBoundary from "@/shared/components/error-boundary";
 import NotFound from "@/shared/components/not-found";
-import { InfoUserType } from "@/features/auth/services/auth-services";
+import Usuarios from "@/features/usuarios/page/usarios";
 
 const Dashboard = lazy(() => import("../features/dashboard/page/dashboard"));
 const Productos = lazy(() => import("../features/productos/page/productos"));
@@ -25,6 +25,7 @@ interface Route {
   path: string;
   name: string;
   Icon?: IconType;
+  loader?: LoaderFunction<any>
   index: boolean;
 }
 
@@ -36,6 +37,14 @@ export const routes: Route[] = [
     path: "dashboard",
     Icon: MdSpaceDashboard,
     index: true,
+  },
+  {
+    Component: Usuarios,
+    to: "/usuarios",
+    name: "Usuarios",
+    path: "usuarios",
+    Icon:HiUsers ,
+    index: false,
   },
   {
     Component: Productos,
@@ -58,11 +67,12 @@ export const router = createBrowserRouter(
       element: <SignUp />,
     },
     {
+      id: "root",
       path: "/",
-      loader: AuthLoader as LoaderFunction<InfoUserType>,
-      children: routes,
+      loader: authLoader,
       element: <RootLayout />,
-      errorElement: <ErrorBoundary />
+      errorElement: <ErrorBoundary />,
+      children: routes,
     },
     {
       path: "*",

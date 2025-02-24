@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useForm } from "react-hook-form";
 import { loginUserSchema } from "../schemas/forms-schema";
-import { FormContent, FormField, FormHeader, FormTitle, Input, Label } from "@/shared/components/form.components";
+import { FormContent, FormField, FormHeader, FormTitle, InputForm, Label } from "@/shared/components/form.components";
 import { Link } from "react-router-dom";
 import { Button } from "@/shared/components/button";
 import { z } from "zod";
@@ -50,11 +50,11 @@ function FormLogin() {
         <FormContent>
           <FormField error={errors.email}>
             <Label forHtml="email" name="Email" key="email-label" clasName="" />
-            <Input
+            <InputForm
               placeholder="correo@example.com"
               register={register("email")}
               type="text"
-              key="email-input"
+              key="email-inputForm"
               className="w-full"
             />
           </FormField>
@@ -66,11 +66,11 @@ function FormLogin() {
               key="password-label"
               clasName=""
             />
-            <Input
+            <InputForm
               placeholder="correo@example.com"
               register={register("password")}
               type="password"
-              key="password-input"
+              key="password-inputForm"
               className="w-full"
             />
           </FormField>

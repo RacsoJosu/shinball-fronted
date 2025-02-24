@@ -1,14 +1,14 @@
 import { create } from "zustand";
 
-export interface InfoUser {
+export interface InfoUserType {
   id: string;
   email: string;
   name: string;
 }
 
 interface AuthState {
-  user: InfoUser | null;
-  setUser: (user: InfoUser) => void;
+  user: InfoUserType | null;
+  setUser: (user: InfoUserType) => void;
   logout: VoidFunction;
 }
 
