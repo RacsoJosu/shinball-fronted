@@ -1,8 +1,11 @@
+import FormLogin from "../components/form-login";
 
 function Login() {
   return (
-    <div>Login</div>
-  )
+    <div className="h-screen">
+      <FormLogin />
+    </div>
+  );
 }
 
-export default Login
+export default Login;
