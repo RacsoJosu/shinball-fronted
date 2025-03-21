@@ -7,15 +7,12 @@ import axios from "axios";
 import { ApiErrorResponse } from "@/lib/axios";
 
 export function useLoginMutation() {
-  const navigate = useNavigate();
+
 
   return useMutation({
     mutationKey: ["login"],
     mutationFn: Login,
-    onSuccess: () => {
-      toast.success("Login realizado correctamente");
-      navigate("/dashboard");
-    },
+
     onError: (error) => {
       if (axios.isAxiosError<ApiErrorResponse>(error)) {
         toast.error(error.response?.data?.details);

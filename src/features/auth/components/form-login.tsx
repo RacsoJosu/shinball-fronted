@@ -3,12 +3,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { loginUserSchema } from "../schemas/forms-schema";
 import { FormContent, FormField, FormHeader, FormTitle, InputForm, Label } from "@/shared/components/form.components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/shared/components/button";
 import { z } from "zod";
 import { useLoginMutation } from "../hooks/auth-hooks";
+import { toast } from "react-toastify";
 
 function FormLogin() {
+   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -24,7 +26,12 @@ function FormLogin() {
   const loginMutation = useLoginMutation();
 
   async function onSubmit(params: z.infer<typeof loginUserSchema>) {
-    await loginMutation.mutateAsync({ ...params });
+    await loginMutation.mutateAsync({ ...params }, {
+      onSuccess: () => {
+      toast.success("Login realizado correctamente");
+      navigate("/dashboard");
+    },
+    });
   }
   return (
     <div className="h-full  flex flex-col justify-center items-center">

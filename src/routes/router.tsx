@@ -1,4 +1,4 @@
-import { MdSpaceDashboard, } from "react-icons/md";
+import { MdSpaceDashboard } from "react-icons/md";
 import { IoMdCart } from "react-icons/io";
 import { IconType } from "react-icons";
 import { HiUsers } from "react-icons/hi2";
@@ -11,12 +11,13 @@ import { createBrowserRouter, LoaderFunction } from "react-router-dom";
 import { authLoader } from "@/features/auth/loaders/loader-auth";
 import ErrorBoundary from "@/shared/components/error-boundary";
 import NotFound from "@/shared/components/not-found";
-import Usuarios from "@/features/usuarios/page/usarios";
+import Usuarios from "@/features/usuarios/page/usuarios";
+import Perfil from "@/features/usuarios/page/perfil.page";
 
 const Dashboard = lazy(() => import("../features/dashboard/page/dashboard"));
 const Productos = lazy(() => import("../features/productos/page/productos"));
 
-type JSXComponent = () => JSX.Element;
+export type JSXComponent = () => JSX.Element;
 type LazyComponent = LazyExoticComponent<JSXComponent>;
 
 interface Route {
@@ -25,13 +26,14 @@ interface Route {
   path: string;
   name: string;
   Icon?: IconType;
-  loader?: LoaderFunction<any>
+  loader?: LoaderFunction<any>;
   index: boolean;
 }
 
 export const routes: Route[] = [
   {
     Component: Dashboard,
+
     to: "/dashboard",
     name: "Dashboard",
     path: "dashboard",
@@ -43,7 +45,7 @@ export const routes: Route[] = [
     to: "/usuarios",
     name: "Usuarios",
     path: "usuarios",
-    Icon:HiUsers ,
+    Icon: HiUsers,
     index: false,
   },
   {
@@ -60,6 +62,7 @@ export const router = createBrowserRouter(
   [
     {
       path: "/login",
+      index: true,
       element: <Login />,
     },
     {
@@ -72,11 +75,30 @@ export const router = createBrowserRouter(
       loader: authLoader,
       element: <RootLayout />,
       errorElement: <ErrorBoundary />,
-      children: routes,
+      children: [
+        {
+          index: true,
+          path:"dashboard",
+          element: <Dashboard />,
+        },
+        {
+          element: <Usuarios />,
+          path: "usuarios",
+        },
+        {
+          element: <Productos />,
+          path: "productos",
+        },
+        {
+          element: <Perfil/>,
+          path: "perfil"
+        }
+      ],
     },
+
     {
       path: "*",
-      element:<NotFound/>
+      element: <NotFound />,
     },
   ],
   {

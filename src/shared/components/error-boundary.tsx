@@ -15,7 +15,7 @@ function ErrorBoundary() {
     }
 
     if (error.status === 401) {
-      return <Navigate to={"/login"} />;
+      return <Navigate to={"/login"} replace/>;
     }
 
     if (error.status >= 500) {
@@ -29,15 +29,12 @@ function ErrorBoundary() {
 
 
   if (error instanceof AxiosError) {
-    console.log(error instanceof AxiosError)
     const err = error as AxiosError
     if (err.status === 401) {
 
       return(<Navigate to={"/login"} />);
     }
   }
-
-  console.log(error)
 
   return (
     <div>Something went wrong</div>

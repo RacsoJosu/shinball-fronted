@@ -3,7 +3,7 @@ import {
   MdKeyboardDoubleArrowLeft,
 } from "react-icons/md";
 import PropiedadesIcon from "@assets/propiedades-icons";
-import { NavLink, Outlet, useLoaderData } from "react-router-dom";
+import { NavLink, Outlet, useLoaderData, useLocation } from "react-router-dom";
 import { routes } from "./routes/router";
 import { PropsWithChildren, useState } from "react";
 import { RiLogoutBoxLine } from "react-icons/ri";
@@ -12,7 +12,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuItemProps,
-
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { Button } from "./shared/components/button";
@@ -21,6 +20,7 @@ import { cn } from "./lib/utils";
 import { useLogoutMutation } from "./features/auth/hooks/auth-hooks";
 import { InfoUserType } from "./stores/auth.store";
 function RootLayout() {
+  const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleSidebar = () => setIsCollapsed((prev) => !prev);
 
@@ -72,7 +72,7 @@ function RootLayout() {
                   gap: "4px",
                 }}
                 className={({ isActive }) =>
-                  isActive
+                  isActive || (to === "/dashboard" && location.pathname === "/")
                     ? " bg-gray-200  text-sky-800 font-semibold border-e-6 "
                     : ""
                 }
@@ -105,7 +105,9 @@ function RootLayout() {
 
 export function DropdownMenuProfile() {
   return (
-    <DropdownMenu>
+    <DropdownMenu
+
+    >
       <DropdownMenuTrigger asChild>
         <div className="h-auto py-2">
           <Button className="size-auto rounded-full mt-0 " type="button">
@@ -113,7 +115,28 @@ export function DropdownMenuProfile() {
           </Button>
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 shadow-sm   rounded-sm">
+      <DropdownMenuContent className="w-56 shadow-md  rounded-sm">
+        <MenuItem
+        >
+          <NavLink
+            to={"perfil"}
+            style={{
+              width: "100%",
+              display: "flex",
+              flexWrap: "nowrap",
+              justifyContent: "start",
+              alignItems: "center",
+              gap: "4px",
+            }}
+          >
+            {/* {Icon ? <Icon className=" text-center w-6 h-6   " /> : null} */}
+            <span
+              className={`text-lg max-sm:hidden  opacity-100 transition-opacity duration-500 delay-200`}
+            >
+              Perfil
+            </span>
+          </NavLink>
+        </MenuItem>
         <LogoutButton />
       </DropdownMenuContent>
     </DropdownMenu>
