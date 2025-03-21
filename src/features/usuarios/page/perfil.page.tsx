@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLoginMutation } from "@/features/auth/hooks/auth-hooks";
-import { loginUserSchema } from "@/features/auth/schemas/forms-schema";
+// import { loginUserSchema } from "@/features/auth/schemas/forms-schema";
 import { Button } from "@/shared/components/button";
 import {
   FormContent,
@@ -14,8 +14,8 @@ import {
 import { InfoUserType } from "@/stores/auth.store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useNavigate, useRouteLoaderData } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useRouteLoaderData } from "react-router-dom";
+// import { toast } from "react-toastify";
 import { z } from "zod";
 import { updateInfoUser } from "../schemas/perfil.schemas";
 
