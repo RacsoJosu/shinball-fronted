@@ -17,5 +17,5 @@ export async function Logout() {
 }
 
 export async function getInfoAuthUser() {
-  return await axiosIntance.post<ApiSuccessResponse<InfoUserType>>("auth/me");
+  return await axiosIntance.get<ApiSuccessResponse<InfoUserType>>("auth/me");
 }
