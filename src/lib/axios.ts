@@ -23,10 +23,6 @@ const axiosIntance = axios.create({
   baseURL: import.meta.env.VITE_SHINBALL_API,
   withCredentials: true,
   timeout: 16000,
-   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  }
-
 })
 
 axiosIntance.interceptors.response.use(
