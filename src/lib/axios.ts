@@ -22,7 +22,7 @@ export interface ApiErrorResponse<T = null> {
 const axiosIntance = axios.create({
   baseURL: import.meta.env.VITE_SHINBALL_API,
   withCredentials: true,
-  timeout: 16000,
+
 })
 
 axiosIntance.interceptors.response.use(
