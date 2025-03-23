@@ -4,7 +4,6 @@ import { loginUserSchema } from "../schemas/forms-schema";
 import { InfoUserType } from "@/stores/auth.store";
 
 
-
 export async function Login(body: z.infer<typeof loginUserSchema>) {
   return await axiosIntance.post<ApiSuccessResponse<null>>("auth/login", {
     ...body,

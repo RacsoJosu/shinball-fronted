@@ -41,4 +41,5 @@ axiosIntance.interceptors.response.use(
   }
 );
 
+axiosIntance.defaults.withCredentials  = true
 export default axiosIntance;
