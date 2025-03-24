@@ -4,12 +4,12 @@ import { Title } from "@/shared/components/title";
 import { Button } from "@/shared/components/button";
 import { Search } from "@/shared/components/search-input";
 import { NavLink, useSearchParams } from "react-router-dom";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useUsersQueryOptions } from "../hooks/users-queries";
 
 function Usuarios() {
   const [searchParams, _] = useSearchParams()
-  const { data } = useSuspenseQuery(useUsersQueryOptions(searchParams.get("search")))
+  const { data } = useQuery({...useUsersQueryOptions(searchParams.get("search")), enabled: !!searchParams.get("search")})
   console.log({data})
   return (
     <div className="flex flex-col flex-wrap mt-4 ">
