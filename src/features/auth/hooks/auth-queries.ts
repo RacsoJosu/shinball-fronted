@@ -6,8 +6,7 @@ export function useAuthQueryOptions() {
   return queryOptions({
     queryKey: ["getInfoUser"],
     queryFn: getInfoAuthUser,
-    retry: 1,
-    retryDelay: 2000
+    retry: false,
 
   })
 

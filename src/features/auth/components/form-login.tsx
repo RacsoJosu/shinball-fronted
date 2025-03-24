@@ -8,8 +8,11 @@ import { Button } from "@/shared/components/button";
 import { z } from "zod";
 import { useLoginMutation } from "../hooks/auth-hooks";
 import { toast } from "react-toastify";
+import { useAuthStore } from "@/stores/auth.store";
 
 function FormLogin() {
+  const auth = useAuthStore()
+
    const navigate = useNavigate();
   const {
     register,
@@ -27,7 +30,9 @@ function FormLogin() {
 
   async function onSubmit(params: z.infer<typeof loginUserSchema>) {
     await loginMutation.mutateAsync({ ...params }, {
-      onSuccess: () => {
+      onSuccess: ({ data }) => {
+
+      auth.setToken(data.data)
       toast.success("Login realizado correctamente");
       navigate("/dashboard");
     },
@@ -85,14 +90,15 @@ function FormLogin() {
 
         <Button
           type="submit"
-          label={
-            loginMutation.isPending ? "Iniciando sesión..." : "Iniciar sesión"
-          }
           disabled={loginMutation.isPending}
           className={`${
             loginMutation.isPending ? "bg-gray-300 text-gray-400" : ""
           }`}
-        />
+        >
+          {
+            loginMutation.isPending ? "Iniciando sesión..." : "Iniciar sesión"
+          }
+        </Button>
       </form>
     </div>
   );

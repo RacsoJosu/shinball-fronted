@@ -18,7 +18,7 @@ import { Button } from "./shared/components/button";
 import { SlOptionsVertical } from "react-icons/sl";
 import { cn } from "./lib/utils";
 import { useLogoutMutation } from "./features/auth/hooks/auth-hooks";
-import { InfoUserType } from "./stores/auth.store";
+import { InfoUserType, useAuthStore } from "./stores/auth.store";
 function RootLayout() {
   const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -144,11 +144,13 @@ export function DropdownMenuProfile() {
 }
 
 export function LogoutButton() {
+  const auth = useAuthStore()
   const dataLoader = useLoaderData() as InfoUserType;
   const logoutMutation = useLogoutMutation(dataLoader.id);
   return (
     <MenuItem
       onClick={() => {
+        auth.clearToken();
         logoutMutation.mutate();
       }}
       className={cn(

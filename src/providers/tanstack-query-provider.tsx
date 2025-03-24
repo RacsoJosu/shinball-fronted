@@ -3,7 +3,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ReactNode } from "react"
 
 export const queryClient = new QueryClient({
-  defaultOptions: {queries: {
+  defaultOptions: {
+    queries: {
+    
       staleTime: 1000 * 60 * 5, // 5 minutos
       refetchOnMount: true,
       refetchOnWindowFocus: true,

@@ -124,7 +124,7 @@ function FormSignUp() {
             register={register("passwordConfirmation")}
           />
         </FormField>
-        <Button type="submit" label="Registrarse" />
+        <Button type="submit" >Registrarse</Button>
       </form>
     </div>
   );

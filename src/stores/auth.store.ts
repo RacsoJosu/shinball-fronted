@@ -1,4 +1,5 @@
-import { create } from "zustand";
+import { create, } from "zustand";
+import { persist} from "zustand/middleware";
 
 export interface InfoUserType {
   id: string;
@@ -7,15 +8,21 @@ export interface InfoUserType {
 }
 
 interface AuthState {
-  user: InfoUserType | null;
-  setUser: (user: InfoUserType) => void;
-  logout: VoidFunction;
+  token: string | null;
+  setToken: (token: string) => void;
+  clearToken: () => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  setUser: (user) => set({ user }),
-  logout: () => set({ user: null }),
-}));
-
-export const getState = useAuthStore.getState
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      token: null,
+      setToken: (token) => set({ token }),
+      clearToken: () => set({ token: null }),
+    }),
+    {
+      name: "auth-storage",
+    }
+  )
+);
+export const getStateAuth = useAuthStore.getState

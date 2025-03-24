@@ -13,6 +13,7 @@ import ErrorBoundary from "@/shared/components/error-boundary";
 import NotFound from "@/shared/components/not-found";
 import Usuarios from "@/features/usuarios/page/usuarios";
 import Perfil from "@/features/usuarios/page/perfil.page";
+// import { loaderUsers } from "@/features/usuarios/loader/usuarios-loader";
 
 const Dashboard = lazy(() => import("../features/dashboard/page/dashboard"));
 const Productos = lazy(() => import("../features/productos/page/productos"));
@@ -78,21 +79,34 @@ export const router = createBrowserRouter(
       children: [
         {
           index: true,
-          path:"dashboard",
+          path: "dashboard",
           element: <Dashboard />,
         },
         {
-          element: <Usuarios />,
           path: "usuarios",
+          children: [
+            {
+              index: true,
+              element: <Usuarios />,
+            },
+            {
+              path: "agregar",
+              element: <div>Agregar</div>,
+            },
+            {
+              path: "editar",
+              element: <div>Editar</div>,
+            },
+          ],
         },
         {
           element: <Productos />,
           path: "productos",
         },
         {
-          element: <Perfil/>,
-          path: "perfil"
-        }
+          element: <Perfil />,
+          path: "perfil",
+        },
       ],
     },
 

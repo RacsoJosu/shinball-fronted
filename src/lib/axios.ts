@@ -1,3 +1,4 @@
+import { getStateAuth } from "@/stores/auth.store";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
@@ -19,13 +20,13 @@ export interface ApiErrorResponse<T = null> {
   stack?: string | null;
 }
 
-const axiosIntance = axios.create({
+const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_SHINBALL_API,
   withCredentials: true,
 
 })
 
-axiosIntance.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401 || (error instanceof Error && error.message.includes("Sesión expirada"))) {
@@ -40,6 +41,12 @@ axiosIntance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+axiosInstance.interceptors.request.use((config) => {
+  const token = getStateAuth().token;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
-axiosIntance.defaults.withCredentials  = true
-export default axiosIntance;
+export default axiosInstance;

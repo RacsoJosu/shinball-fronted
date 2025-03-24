@@ -5,7 +5,7 @@ import { InfoUserType } from "@/stores/auth.store";
 
 
 export async function Login(body: z.infer<typeof loginUserSchema>) {
-  return await axiosIntance.post<ApiSuccessResponse<null>>("auth/login", {
+  return await axiosIntance.post<ApiSuccessResponse<string>>("auth/login", {
     ...body,
   });
 }
