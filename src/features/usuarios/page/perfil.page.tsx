@@ -111,12 +111,12 @@ function UpdateAccountForm() {
 
         <Button
           type="submit"
-          label={loginMutation.isPending ? "Actualizando..." : "Actualizar"}
+
           disabled={loginMutation.isPending}
           className={`${
             loginMutation.isPending ? "bg-gray-300 text-gray-400" : ""
           }`}
-        />
+        >{loginMutation.isPending ? "Actualizando..." : "Actualizar"}</Button>
       </form>
     </div>
   );

@@ -10,6 +10,7 @@ import { useUsersQueryOptions } from "../hooks/users-queries";
 function Usuarios() {
   const [searchParams, _] = useSearchParams()
   const { data } = useSuspenseQuery(useUsersQueryOptions(searchParams.get("search")))
+  console.log({data})
   return (
     <div className="flex flex-col flex-wrap mt-4 ">
       <HeaderPage>
