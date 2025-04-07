@@ -18,14 +18,14 @@ import { Button } from "./shared/components/button";
 import { SlOptionsVertical } from "react-icons/sl";
 import { cn } from "./lib/utils";
 import { useLogoutMutation } from "./features/auth/hooks/auth-hooks";
-import { InfoUserType, useAuthStore } from "./stores/auth.store";
+import { InfoUserType } from "./stores/auth.store";
 function RootLayout() {
   const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleSidebar = () => setIsCollapsed((prev) => !prev);
 
   return (
-    <div className="flex w-full">
+    <div className="flex w-full h-screen">
       <nav
         className={`h-[100vh]   transition-all duration-500 ease-in-out overflow-hidden poppins-normal  ${
           isCollapsed ? "w-[60px]" : "w-[180px]"
@@ -93,34 +93,46 @@ function RootLayout() {
           ))}
         </ul>
       </nav>
-      <main className="flex flex-col flex-1  overflow-y-auto">
+      <main className="flex flex-col flex-1  ">
         <header className="bg-gray-100 px-2 flex flex-row-reverse flex-wrap items-center  shadow-gray-200 border-l-2 shadow-sm min-h-auto">
           <DropdownMenuProfile />
         </header>
+        <div  className="flex-1 overflow-y-auto">
         <Outlet />
+
+        </div>
       </main>
     </div>
   );
 }
 
 export function DropdownMenuProfile() {
+
   return (
     <DropdownMenu
 
     >
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild
+
+      >
         <div className="h-auto py-2">
-          <Button className="size-auto rounded-full mt-0 " type="button">
+          <Button className="size-auto rounded-full mt-0 " type="button"
+
+          >
             <SlOptionsVertical />
           </Button>
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 shadow-md  rounded-sm">
+      <DropdownMenuContent className="w-56 shadow-md bg-white rounded-sm z-[100]">
         <MenuItem
+          className="p-0"
+
+        asChild
         >
           <NavLink
             to={"perfil"}
             style={{
+              padding: "16px",
               width: "100%",
               display: "flex",
               flexWrap: "nowrap",
@@ -128,6 +140,7 @@ export function DropdownMenuProfile() {
               alignItems: "center",
               gap: "4px",
             }}
+
           >
             {/* {Icon ? <Icon className=" text-center w-6 h-6   " /> : null} */}
             <span
@@ -144,13 +157,13 @@ export function DropdownMenuProfile() {
 }
 
 export function LogoutButton() {
-  const auth = useAuthStore()
+
   const dataLoader = useLoaderData() as InfoUserType;
   const logoutMutation = useLogoutMutation(dataLoader.id);
   return (
     <MenuItem
       onClick={() => {
-        auth.clearToken();
+
         logoutMutation.mutate();
       }}
       className={cn(
@@ -174,7 +187,7 @@ function MenuItem({
   return (
     <DropdownMenuItem
       className={cn(
-        "p-4 focus-visible:outline-0 flex flex-1 gap-2 items-center hover:bg-gray-200 hover:text-primary-400 cursor-pointer",
+        "p-4 focus-visible:outline-0 flex flex-1 gap-2 items-center hover:bg-gray-200 hover:text-primary-400 bg-white cursor-pointer",
         className
       )}
       {...props}

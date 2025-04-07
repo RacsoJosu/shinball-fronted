@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { ApiErrorResponse } from "@/lib/axios";
+import { useAuthStore } from "@/stores/auth.store";
 
 export function useLoginMutation() {
 
@@ -24,12 +25,14 @@ export function useLoginMutation() {
 
 export function useLogoutMutation(idUser:string) {
   const navigate = useNavigate();
+    const auth = useAuthStore()
 
   return useMutation({
     mutationKey: ["logout", idUser],
     mutationFn: Logout,
     onSuccess: ({data}) => {
       toast.success(data.message);
+      auth.clearToken();
       navigate("/login");
     },
     onError: (error) => {

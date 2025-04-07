@@ -4,13 +4,22 @@ import { Title } from "@/shared/components/title";
 import { Button } from "@/shared/components/button";
 import { Search } from "@/shared/components/search-input";
 import { NavLink, useSearchParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useUsersQueryOptions } from "../hooks/users-queries";
+import { TableCustom } from "../components/table-users";
+import { PropsWithChildren, Suspense } from "react";
 
 function Usuarios() {
-  const [searchParams, _] = useSearchParams()
-  const { data } = useQuery(useUsersQueryOptions(searchParams.get("search") || ""))
-  console.log({data})
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { data } = useSuspenseQuery({
+    ...useUsersQueryOptions(
+      searchParams.get("search") || "",
+      Number(searchParams.get("page")) || 1,
+      10
+    ),
+    select: (res) => res.data.data,
+  });
+
   return (
     <div className="flex flex-col flex-wrap mt-4 ">
       <HeaderPage>
@@ -28,8 +37,111 @@ function Usuarios() {
         </div>
         <Search />
       </HeaderPage>
+
+      <ContentPage>
+        <Suspense
+          fallback={
+            <div className="h-full flex flex-col items-center justify-center w-full">
+              <p>Cargando ...</p>{" "}
+            </div>
+          }
+        >
+          <TableWrapper />
+        </Suspense>
+        <div className="h-2">
+          <div className="flex items-center gap-2">
+            <button className="border rounded p-1">{"<<"}</button>
+            <button
+              className="border rounded p-1"
+              onClick={() => {
+                const lastPage = Math.max(
+                  parseInt(searchParams.get("page") || "1", 10) - 1,
+                  1
+                );
+                setSearchParams({ page: lastPage.toString() });
+              }}
+              disabled={Math.max(Number(searchParams.get("page")), 1) === 1}
+            >
+              {"<"}
+            </button>
+            <button
+              className="border rounded p-1"
+              onClick={() => {
+                const nextPage =
+                  parseInt(searchParams.get("page") || "1", 10) + 1;
+                setSearchParams({ page: nextPage.toString() });
+              }}
+              disabled={Math.max(Number(searchParams.get("page")), 1) === data.totalPages}
+            >
+              {">"}
+            </button>
+            <button
+              className="border rounded p-1"
+              // onClick={() => table.lastPage()}
+              // disabled={!table.getCanNextPage()}
+            >
+              {">>"}
+            </button>
+            <span className="flex items-center gap-1">
+              <div>Page</div>
+              <strong>
+                {Math.max(Number(searchParams.get("page")), 1)} of{' '}
+                {data.totalPages}
+              </strong>
+            </span>
+            {/* <span className="flex items-center gap-1">
+              | Go to page:
+              <input
+                type="number"
+                min="1"
+                // max={table.getPageCount()}
+                // defaultValue={table.getState().pagination.pageIndex + 1}
+                onChange={(e) => {
+                  // const page = e.target.value ? Number(e.target.value) - 1 : 0
+                  // table.setPageIndex(page)
+                }}
+                className="border p-1 rounded w-16"
+              />
+            </span>
+            <select
+            // value={table.getState().pagination.pageSize}
+            // onChange={e => {
+            //   table.setPageSize(Number(e.target.value))
+            // }}
+            >
+              {[10, 20, 30, 40, 50].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select> */}
+          </div>
+          <div>
+            {/* Showing {table.getRowModel().rows.length.toLocaleString()} of{' '}
+        {table.getRowCount().toLocaleString()} Rows */}
+          </div>
+        </div>
+      </ContentPage>
     </div>
   );
+}
+
+function TableWrapper() {
+  const [searchParams, _] = useSearchParams();
+  const { data } = useSuspenseQuery({
+    ...useUsersQueryOptions(
+      searchParams.get("search") || "",
+      Number(searchParams.get("page")) || 1,
+      10
+    ),
+    select: (res) => res.data.data,
+  });
+
+  return <TableCustom data={data.users} />;
+}
+
+function ContentPage({ children }: PropsWithChildren) {
+  return <div className="flex flex-col gap-4 flex-1 px-12">{children}</div>;
 }
 
 export default Usuarios;
