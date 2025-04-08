@@ -12,7 +12,7 @@ export function Button({ type, onClick, className, children, ...rest }: ButtonPr
   return (
     <button
       {...rest}
-      onClick={onclick ? onClick : undefined}
+      onClick={onClick ? onClick : undefined}
       type={type}
       className={cn(`w-full flex justify-center gap-4 cursor-pointer mt-2 hover:bg-primary-500 bg-primary-400 text-white p-2.5 rounded-md shadow-md`, className)}
     >

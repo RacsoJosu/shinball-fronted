@@ -1,43 +1,55 @@
 import { useEffect, useState } from "react";
 import Input from "./input";
-import { createSearchParams, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  createSearchParams,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 
-
-export function useDebounce({ value, delay }: { value: string, delay: number }) {
-  const [debouncedValue, setDebouncedValue] = useState(value)
+export function useDebounce({
+  value,
+  delay,
+}: {
+  value: string;
+  delay: number;
+}) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setDebouncedValue(value)
-    }, delay)
-    return ()=> clearTimeout(timeoutId)
-  },[value, delay])
+      setDebouncedValue(value);
+    }, delay);
+    return () => clearTimeout(timeoutId);
+  }, [value, delay]);
 
-  return debouncedValue
-
+  return debouncedValue;
 }
-
 
 export function Search() {
   let [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
   const [inputValue, setInputValue] = useState(
     searchParams.get("search") || ""
   );
   const debouncedValue = useDebounce({ value: inputValue, delay: 300 });
 
-
-
   useEffect(() => {
     if (debouncedValue.trim() === "") {
-      const newParams = new URLSearchParams();
-      setSearchParams(newParams);
+      setSearchParams((prev) => {
+        const params = new URLSearchParams(prev);
+        params.delete("search")
+        params.set("page", "1")
+        return params;
+      });
     } else {
       navigate({
         pathname: location.pathname,
+
         search: createSearchParams({
           search: debouncedValue,
+          page: "1",
         }).toString(),
       });
     }
@@ -55,8 +67,3 @@ export function Search() {
     />
   );
 }
-
-
-
-
-
