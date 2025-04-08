@@ -14,11 +14,10 @@ import { cn } from "@/lib/utils";
 import {
   IoArrowBackCircleSharp,
   IoArrowForwardCircleSharp,
-  IoArrowUpCircleSharp,
 } from "react-icons/io5";
 
 function Usuarios() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, _] = useSearchParams();
   const { data } = useSuspenseQuery({
     ...useUsersQueryOptions(
       searchParams.get("search") || "",
