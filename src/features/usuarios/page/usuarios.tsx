@@ -28,7 +28,7 @@ function Usuarios() {
   });
 
   return (
-    <div className="flex flex-col flex-wrap mt-4 ">
+    <div className="flex flex-col flex-wrap gap-8 ">
       <HeaderPage>
         <div className="flex justify-between items-center ">
           <Title title="Usuarios" />
@@ -98,7 +98,7 @@ const columns = [
 
 function TableWrapper() {
   const [searchParams, _] = useSearchParams();
-  const { data } = useSuspenseQuery({
+  const { data, isPending } = useSuspenseQuery({
     ...useUsersQueryOptions(
       searchParams.get("search") || "",
       Number(searchParams.get("page")) || 1,
@@ -106,6 +106,14 @@ function TableWrapper() {
     ),
     select: (res) => res.data.data,
   });
+
+  if (isPending) {
+    return (
+      <div className="h-full flex flex-col items-center justify-center w-full">
+        <p>Cargando ...</p>{" "}
+      </div>
+    );
+  }
 
   return <TableCustom data={data.users} columns={columns} />;
 }
@@ -121,7 +129,7 @@ function ContentPage({
   >) {
   return (
     <div
-      className={cn("flex flex-col gap-4 flex-1 px-12", className)}
+      className={cn("flex flex-col gap-4 flex-1 ", className)}
       {...props}
     >
       {children}
@@ -159,7 +167,7 @@ function Pagination({ totalPages }: { totalPages: number }) {
             console.log({ searchParams });
             setSearchParams((prev) => {
               const params = new URLSearchParams(prev);
-              params.set("page", nextPage.toString() );
+              params.set("page", nextPage.toString());
               return params;
             });
             // setSearchParams((prev) => ({ ...prev, page: nextPage.toString() }));

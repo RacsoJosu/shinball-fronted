@@ -4,6 +4,19 @@ import { signUpSchema } from "../schemas/forms-schema";
 import { FormField, InputForm, Label } from "@/shared/components/form.components";
 import { Button } from "@/shared/components/button";
 
+
+import * as React from "react"
+import { format } from "date-fns"
+import { Calendar as CalendarIcon } from "lucide-react"
+
+import { cn } from "@/lib/utils"
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+
 function FormSignUp() {
   const {
     register,
@@ -28,7 +41,7 @@ function FormSignUp() {
 
       <form
         onSubmit={handleSubmit((data) => console.log(data))}
-        className="h-auto flex flex-col @max-sm:w-full     gap-6 overflow-y-auto"
+        className="h-auto flex flex-col @max-sm:w-full     gap-6 "
       >
         <div className="flex max-xs:flex-col items-center   gap-6">
           <FormField error={errors.firstName}>
@@ -86,12 +99,7 @@ function FormSignUp() {
               key={"Fecha de nacimiento"}
 
             />
-          <InputForm
-            className="w-full"
-            type="date"
-            placeholder="Fecha de nacimiento"
-            register={register("birthdate")}
-          />
+          <DatePickerDemo/>
         </FormField>
         <FormField error={errors.password} >
 
@@ -128,6 +136,37 @@ function FormSignUp() {
       </form>
     </div>
   );
+}
+
+
+
+export function DatePickerDemo() {
+  const [date, setDate] = React.useState<Date>()
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          type="button"
+          className={cn(
+            "w-full justify-start items-center text-left  hover:bg-white bg-white shadow-none border-2 font-normal",
+            !date && "text-muted-foreground"
+          )}
+        >
+          <CalendarIcon className="mr-2 h-4 w-4" />
+          {date ? format(date, "PPP") : <span>Selecciona una fécha</span>}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent  className="w-auto p-0">
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          initialFocus
+        />
+      </PopoverContent>
+    </Popover>
+  )
 }
 
 export default FormSignUp;

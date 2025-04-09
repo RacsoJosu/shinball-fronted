@@ -13,6 +13,7 @@ import ErrorBoundary from "@/shared/components/error-boundary";
 import NotFound from "@/shared/components/not-found";
 import Usuarios from "@/features/usuarios/page/usuarios";
 import Perfil from "@/features/usuarios/page/perfil.page";
+import AgregarUsuario from "@/features/usuarios/page/agregar-usuario";
 // import { loaderUsers } from "@/features/usuarios/loader/usuarios-loader";
 
 const Dashboard = lazy(() => import("../features/dashboard/page/dashboard"));
@@ -92,7 +93,7 @@ export const router = createBrowserRouter(
             },
             {
               path: "agregar",
-              element: <div>Agregar</div>,
+              element: <AgregarUsuario/>,
             },
             {
               path: "editar",
