@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { Login, Logout } from "../services/auth-services";
+import { Login, Logout, signUp } from "../services/auth-services";
 
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -14,6 +14,24 @@ export function useLoginMutation() {
     mutationKey: ["login"],
     mutationFn: Login,
 
+    onError: (error) => {
+      if (axios.isAxiosError<ApiErrorResponse>(error)) {
+        toast.error(error.response?.data?.details);
+      }
+    },
+  });
+}
+
+export function useSignUpMutation() {
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationKey: ["signup"],
+    mutationFn: signUp,
+    onSuccess: ({data}) => {
+      toast.success(data.message);
+      navigate("/usuarios");
+    },
     onError: (error) => {
       if (axios.isAxiosError<ApiErrorResponse>(error)) {
         toast.error(error.response?.data?.details);

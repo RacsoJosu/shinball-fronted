@@ -2,6 +2,7 @@ import axiosIntance, { ApiSuccessResponse } from "@/lib/axios";
 import { z } from "zod";
 import { loginUserSchema } from "../schemas/forms-schema";
 import { InfoUserType } from "@/stores/auth.store";
+import { SignUpFormValues } from "../interfaces/auth";
 
 
 export async function Login(body: z.infer<typeof loginUserSchema>) {
@@ -10,6 +11,11 @@ export async function Login(body: z.infer<typeof loginUserSchema>) {
   });
 }
 
+export async function signUp(body: SignUpFormValues) {
+  return await axiosIntance.post<ApiSuccessResponse<any>>("auth/signup", {
+    ...body,
+  });
+}
 
 export async function Logout() {
   return await axiosIntance.post<ApiSuccessResponse<null>>("auth/logout");
