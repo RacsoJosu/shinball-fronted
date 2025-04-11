@@ -22,8 +22,12 @@ import {
 import { useState } from "react";
 import { z } from "zod";
 import { useSignUpMutation } from "../hooks/auth-hooks";
+import { toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function FormSignUp() {
+  const navigate = useNavigate();
+  const location = useLocation()
   const form = useForm({
     defaultValues: {
       firstName: "",
@@ -36,12 +40,27 @@ function FormSignUp() {
     resolver: zodResolver(signUpSchema),
   });
   const singunpMutation = useSignUpMutation();
-
-
+console.log(location.pathname)
   function onSubmit(data: z.infer<typeof signUpSchema>): void {
-    const formData = { ...data, birthDate: data.birthDate ? format(data.birthDate, "yyyy-MM-dd") : null }
+    const formData = {
+      ...data,
+      birthDate: data.birthDate ? format(data.birthDate, "yyyy-MM-dd") : null,
+    };
 
-    singunpMutation.mutate(formData)
+
+
+    singunpMutation.mutate(formData, {
+      onSuccess: ({ data }) => {
+        toast.success(data.message);
+        if (location.pathname === "/sign-up") {
+          navigate("/login");
+
+        } else {
+          navigate("/usuarios");
+
+         }
+      },
+    });
   }
 
   return (
@@ -50,17 +69,19 @@ function FormSignUp() {
         Crea una cuenta
       </h1>
 
-      <FormProvider
-      {...form}
-      >
-
+      <FormProvider {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="h-auto flex flex-col @max-sm:w-full     gap-6 "
         >
           <div className="flex max-xs:flex-col items-center   gap-6">
             <FormField error={form.formState.errors.firstName}>
-              <Label forHtml="nombre" name="Nombres" clasName="" key={"nombre"} />
+              <Label
+                forHtml="nombre"
+                name="Nombres"
+                clasName=""
+                key={"nombre"}
+              />
 
               <InputForm
                 type="text"
@@ -100,8 +121,7 @@ function FormSignUp() {
               clasName=""
               key={"Fecha de nacimiento"}
             />
-            <DatePickerDemo
-            />
+            <DatePickerDemo />
           </FormField>
           <FormField error={form.formState.errors.password}>
             <Label
@@ -131,13 +151,18 @@ function FormSignUp() {
               register={form.register("passwordConfirmation")}
             />
           </FormField>
-          <Button type="submit"
+          <Button
+            type="submit"
             className={`${
-            form.formState.isSubmitted ? "bg-gray-300 text-gray-400 hover:none" : ""
-          }`}
-            disabled={form.formState.isSubmitted}>Registrarse</Button>
+              form.formState.isSubmitted
+                ? "bg-gray-300 text-gray-400 hover:none"
+                : ""
+            }`}
+            disabled={form.formState.isSubmitted}
+          >
+            Registrarse
+          </Button>
         </form>
-
       </FormProvider>
     </div>
   );
@@ -148,7 +173,6 @@ export function DatePickerDemo() {
   const [date, setDate] = useState<Date>();
 
   const handleDateChange = (selectedDate: Date | undefined) => {
-
     setDate(selectedDate);
     form.setValue("birthDate", selectedDate, {
       shouldValidate: true,
@@ -183,7 +207,6 @@ export function DatePickerDemo() {
           onSelect={handleDateChange}
           locale={es}
           initialFocus
-
         />
       </PopoverContent>
     </Popover>

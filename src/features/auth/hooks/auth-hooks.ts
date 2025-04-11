@@ -23,15 +23,11 @@ export function useLoginMutation() {
 }
 
 export function useSignUpMutation() {
-  const navigate = useNavigate();
 
   return useMutation({
     mutationKey: ["signup"],
     mutationFn: signUp,
-    onSuccess: ({data}) => {
-      toast.success(data.message);
-      navigate("/usuarios");
-    },
+
     onError: (error) => {
       if (axios.isAxiosError<ApiErrorResponse>(error)) {
         toast.error(error.response?.data?.details);
