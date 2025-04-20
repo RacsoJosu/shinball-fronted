@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpSchema } from "../schemas/forms-schema";
+
 import {
   FormField,
   InputForm,
@@ -11,14 +11,15 @@ import { Button } from "@/shared/components/button";
 import { format } from "date-fns";
 
 import { z } from "zod";
-import { useSignUpMutation } from "../hooks/auth-hooks";
+import { useSignUpMutation } from "@features/auth/hooks/auth-hooks";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import Form from "@/shared/components/form";
 import { DatePickerForm } from "@/shared/components/date-picker";
 import { useState } from "react";
+import { addUserSchema } from "../schemas/perfil.schemas";
 
-function FormSignUp() {
+function FormAddUser() {
   const navigate = useNavigate();
   const form = useForm({
     defaultValues: {
@@ -29,7 +30,7 @@ function FormSignUp() {
       password: "",
       passwordConfirmation: "",
     },
-    resolver: zodResolver(signUpSchema),
+    resolver: zodResolver(addUserSchema),
   });
   const singunpMutation = useSignUpMutation();
 
@@ -43,7 +44,7 @@ function FormSignUp() {
     });
 
   };
-  function onSubmit(data: z.infer<typeof signUpSchema>): void {
+  function onSubmit(data: z.infer<typeof addUserSchema>): void {
     const formData = {
       ...data,
       birthDate: data.birthDate ? format(data.birthDate, "yyyy-MM-dd") : null,
@@ -54,21 +55,16 @@ function FormSignUp() {
     singunpMutation.mutate(formData, {
       onSuccess: ({ data }) => {
         toast.success(data.message);
-          navigate("/login");
+        navigate("/usuarios");
       },
     });
   }
 
   return (
-    <div className="h-full flex items-center  flex-col p-4 gap-6 justify-center">
-      <h1 className="font-semibold max-xs:text-2xl  max-xl:text-4xl   text-primary-400 mx-auto">
-        Crea una cuenta
-      </h1>
 
       <FormProvider {...form}>
-        <Form onSubmit={() => onSubmit} className="h-auto flex flex-col @max-sm:w-full gap-6 " >
+        <Form onSubmit={() => onSubmit} className="" >
 
-          <div className="flex max-xs:flex-col items-center   gap-6">
             <FormField error={form.formState.errors.firstName}>
               <Label
                 forHtml="nombre"
@@ -98,7 +94,7 @@ function FormSignUp() {
                 className="max-md:w-full"
               />
             </FormField>
-          </div>
+
           <FormField error={form.formState.errors.email}>
             <Label forHtml="email" name="Email" clasName="" key={"email"} />
             <InputForm
@@ -158,9 +154,9 @@ function FormSignUp() {
           </Button>
         </Form>
       </FormProvider>
-    </div>
+
   );
 }
 
 
-export default FormSignUp;
+export default FormAddUser;
