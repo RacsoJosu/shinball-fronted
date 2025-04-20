@@ -17,15 +17,7 @@ import {
 } from "react-icons/io5";
 
 function Usuarios() {
-  const [searchParams, _] = useSearchParams();
-  const { data } = useSuspenseQuery({
-    ...useUsersQueryOptions(
-      searchParams.get("search") || "",
-      Number(searchParams.get("page")) || 1,
-      10
-    ),
-    select: (res) => res.data.data,
-  });
+
 
   return (
     <div className="flex flex-col flex-wrap gap-8 ">
@@ -46,7 +38,6 @@ function Usuarios() {
       </HeaderPage>
 
       <ContentPage className=" gap-12">
-        <Pagination totalPages={data.totalPages} />
         <Suspense
           fallback={
             <div className="h-full flex flex-col items-center justify-center w-full">
@@ -54,6 +45,7 @@ function Usuarios() {
             </div>
           }
         >
+          <Pagination  />
           <TableWrapper />
         </Suspense>
       </ContentPage>
@@ -98,7 +90,7 @@ const columns = [
 
 function TableWrapper() {
   const [searchParams, _] = useSearchParams();
-  const { data, isPending } = useSuspenseQuery({
+  const { data} = useSuspenseQuery({
     ...useUsersQueryOptions(
       searchParams.get("search") || "",
       Number(searchParams.get("page")) || 1,
@@ -107,13 +99,7 @@ function TableWrapper() {
     select: (res) => res.data.data,
   });
 
-  if (isPending) {
-    return (
-      <div className="h-full flex flex-col items-center justify-center w-full">
-        <p>Cargando ...</p>{" "}
-      </div>
-    );
-  }
+
 
   return <TableCustom data={data.users} columns={columns} />;
 }
@@ -137,8 +123,17 @@ function ContentPage({
   );
 }
 
-function Pagination({ totalPages }: { totalPages: number }) {
+function Pagination({ totalPages }: { totalPages?: number }) {
   const [searchParams, setSearchParams] = useSearchParams();
+  // const [searchParams, _] = useSearchParams();
+  const { data } = useSuspenseQuery({
+    ...useUsersQueryOptions(
+      searchParams.get("search") || "",
+      Number(searchParams.get("page")) || 1,
+      10
+    ),
+    select: (res) => res.data.data,
+  });
   return (
     <div className="h-2">
       <div className="flex items-center gap-2">
@@ -173,7 +168,7 @@ function Pagination({ totalPages }: { totalPages: number }) {
             // setSearchParams((prev) => ({ ...prev, page: nextPage.toString() }));
           }}
           disabled={
-            Math.max(Number(searchParams.get("page")), 1) === totalPages
+            Math.max(Number(searchParams.get("page")), 1) === (totalPages || data.totalPages)
           }
           type="button"
         >
@@ -189,7 +184,7 @@ function Pagination({ totalPages }: { totalPages: number }) {
         <span className="flex items-center gap-1">
           <div>Page</div>
           <strong>
-            {Math.max(Number(searchParams.get("page")), 1)} of {totalPages}
+            {Math.max(Number(searchParams.get("page")), 1)} of {(totalPages || data.totalPages)}
           </strong>
         </span>
         {/* <span className="flex items-center gap-1">
