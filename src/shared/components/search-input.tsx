@@ -6,32 +6,15 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
+import { useDebounce } from "../hooks/use-debounced";
 
-export function useDebounce({
-  value,
-  delay,
-}: {
-  value: string;
-  delay: number;
-}) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-    return () => clearTimeout(timeoutId);
-  }, [value, delay]);
-
-  return debouncedValue;
-}
 
 export function Search() {
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
   const [inputValue, setInputValue] = useState(
-    searchParams.get("search") || ""
+    searchParams.get("search") ?? ""
   );
   const debouncedValue = useDebounce({ value: inputValue, delay: 300 });
 
@@ -53,6 +36,7 @@ export function Search() {
         }).toString(),
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue]);
   return (
     <Input

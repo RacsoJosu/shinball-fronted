@@ -1,6 +1,8 @@
-import { queryClient } from "@/providers/tanstack-query-provider";
+/* eslint-disable react-hooks/rules-of-hooks */
+
 import { redirect } from "react-router-dom";
 import { useAuthQueryOptions } from "../hooks/auth-queries";
+import { queryClient } from "@/providers/query-client";
 
 export const authLoader =  async () => {
 

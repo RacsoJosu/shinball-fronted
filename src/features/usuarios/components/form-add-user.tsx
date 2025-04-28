@@ -63,7 +63,7 @@ function FormAddUser() {
   return (
 
       <FormProvider {...form}>
-        <Form onSubmit={() => onSubmit} className="" >
+        <Form onSubmit={() => onSubmit} className=" grid grid-cols-1 min-xs:grid-cols-2 min-md:grid-cols-3 gap-8" >
 
             <FormField error={form.formState.errors.firstName}>
               <Label
@@ -77,7 +77,7 @@ function FormAddUser() {
                 type="text"
                 placeholder="Joe"
                 register={form.register("firstName")}
-                className="max-md:w-full"
+                className="w-full"
               />
             </FormField>
             <FormField error={form.formState.errors.lastName}>
@@ -91,7 +91,7 @@ function FormAddUser() {
                 type="text"
                 placeholder="Doe"
                 register={form.register("lastName")}
-                className="max-md:w-full"
+                className=" w-full"
               />
             </FormField>
 
@@ -143,14 +143,14 @@ function FormAddUser() {
           </FormField>
           <Button
             type="submit"
-            className={`${
+            className={`min-xs:col-end-3 min-md:col-end-4  ${
               form.formState.isSubmitted
                 ? "bg-gray-300 text-gray-400 hover:none"
                 : ""
             }`}
             disabled={form.formState.isSubmitted}
           >
-            Registrarse
+            Agregar
           </Button>
         </Form>
       </FormProvider>

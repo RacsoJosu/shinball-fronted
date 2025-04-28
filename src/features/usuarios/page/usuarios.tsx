@@ -89,10 +89,10 @@ const columns = [
 ];
 
 function TableWrapper() {
-  const [searchParams, _] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const { data} = useSuspenseQuery({
     ...useUsersQueryOptions(
-      searchParams.get("search") || "",
+      searchParams.get("search") ?? "",
       Number(searchParams.get("page")) || 1,
       10
     ),
@@ -123,12 +123,12 @@ function ContentPage({
   );
 }
 
-function Pagination({ totalPages }: { totalPages?: number }) {
+function Pagination({ totalPages }: Readonly<{ totalPages?: number }>) {
   const [searchParams, setSearchParams] = useSearchParams();
-  // const [searchParams, _] = useSearchParams();
+
   const { data } = useSuspenseQuery({
     ...useUsersQueryOptions(
-      searchParams.get("search") || "",
+      searchParams.get("search") ?? "",
       Number(searchParams.get("page")) || 1,
       10
     ),
@@ -137,12 +137,11 @@ function Pagination({ totalPages }: { totalPages?: number }) {
   return (
     <div className="h-2">
       <div className="flex items-center gap-2">
-        <button className="border rounded p-1">{"<<"}</button>
         <Button
           className="size-auto rounded-full bg-white mt-0 p-0"
           onClick={() => {
             const lastPage = Math.max(
-              parseInt(searchParams.get("page") || "1", 10) - 1,
+              parseInt(searchParams.get("page") ?? "1", 10) - 1,
               1
             );
 
@@ -158,65 +157,31 @@ function Pagination({ totalPages }: { totalPages?: number }) {
         <Button
           className="size-auto rounded-full bg-white mt-0 p-0"
           onClick={() => {
-            const nextPage = parseInt(searchParams.get("page") || "1", 10) + 1;
+            const nextPage = parseInt(searchParams.get("page") ?? "1", 10) + 1;
             console.log({ searchParams });
             setSearchParams((prev) => {
               const params = new URLSearchParams(prev);
               params.set("page", nextPage.toString());
               return params;
             });
-            // setSearchParams((prev) => ({ ...prev, page: nextPage.toString() }));
           }}
           disabled={
-            Math.max(Number(searchParams.get("page")), 1) === (totalPages || data.totalPages)
+            Math.max(Number(searchParams.get("page")), 1) === (totalPages ?? data.totalPages)
           }
           type="button"
         >
           <IoArrowForwardCircleSharp className="text-primary-400 hover:text-white bg-transparent rounded-full size-6" />
         </Button>
-        <button
-          className="border rounded p-1"
-          // onClick={() => table.lastPage()}
-          // disabled={!table.getCanNextPage()}
-        >
-          {">>"}
-        </button>
+
         <span className="flex items-center gap-1">
           <div>Page</div>
           <strong>
-            {Math.max(Number(searchParams.get("page")), 1)} of {(totalPages || data.totalPages)}
+            {Math.max(Number(searchParams.get("page")), 1)} of {(totalPages ?? data.totalPages)}
           </strong>
         </span>
-        {/* <span className="flex items-center gap-1">
-              | Go to page:
-              <input
-                type="number"
-                min="1"
-                // max={table.getPageCount()}
-                // defaultValue={table.getState().pagination.pageIndex + 1}
-                onChange={(e) => {
-                  // const page = e.target.value ? Number(e.target.value) - 1 : 0
-                  // table.setPageIndex(page)
-                }}
-                className="border p-1 rounded w-16"
-              />
-            </span>
-            <select
-            // value={table.getState().pagination.pageSize}
-            // onChange={e => {
-            //   table.setPageSize(Number(e.target.value))
-            // }}
-            >
-              {[10, 20, 30, 40, 50].map((pageSize) => (
-                <option key={pageSize} value={pageSize}>
-                  Show {pageSize}
-                </option>
-              ))}
-            </select> */}
+
       </div>
       <div>
-        {/* Showing {table.getRowModel().rows.length.toLocaleString()} of{' '}
-        {table.getRowCount().toLocaleString()} Rows */}
       </div>
     </div>
   );

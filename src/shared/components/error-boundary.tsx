@@ -10,9 +10,7 @@ function ErrorBoundary() {
 
 
   if (isRouteErrorResponse(error)) {
-    if (error.status === 404) {
-      return <div>This page doesn't exist!</div>;
-    }
+
 
     if (error.status === 401) {
       return <Navigate to={"/login"} replace/>;
@@ -22,22 +20,17 @@ function ErrorBoundary() {
       return <div>Looks like our API is down</div>;
     }
 
-    if (error.status === 418) {
-      return <div>🫖</div>;
-    }
+
   }
 
 
   if (error instanceof AxiosError) {
-    const err = error as AxiosError
-    if (err.status === 401) {
 
-      return(<Navigate to={"/login"} />);
-    }
+    return(<Navigate to={"/login"} />);
   }
 
   return (
-    <div>Something went wrong</div>
+   <Navigate to={"/login"} />
   );
 }
 

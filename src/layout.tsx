@@ -5,7 +5,7 @@ import {
 import PropiedadesIcon from "@assets/propiedades-icons";
 import { NavLink, Outlet, useLoaderData, useLocation } from "react-router-dom";
 import { routes } from "./routes/router";
-import { PropsWithChildren, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import {
   DropdownMenu,
@@ -23,6 +23,18 @@ function RootLayout() {
   const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleSidebar = () => setIsCollapsed((prev) => !prev);
+
+
+  useEffect(() => {
+    function handleResize() {
+      setIsCollapsed(window.innerWidth < 800);
+    }
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <div className="flex w-full h-screen">
@@ -51,7 +63,7 @@ function RootLayout() {
             }   mx-auto`}
           />
           {!isCollapsed && (
-            <span className="font-semibold text-sky-800 max-sm:hidden md:text-lg transition-opacity duration-500 ease-out delay-500">
+            <span className="font-semibold text-sky-800 max-sm:hidden transition-opacity duration-500 ease-out delay-500 text-md">
               Admin Shinball
             </span>
           )}
@@ -142,7 +154,7 @@ export function DropdownMenuProfile() {
             }}
 
           >
-            {/* {Icon ? <Icon className=" text-center w-6 h-6   " /> : null} */}
+
             <span
               className={`text-lg max-sm:hidden  opacity-100 transition-opacity duration-500 delay-200`}
             >

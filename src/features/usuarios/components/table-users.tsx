@@ -14,7 +14,7 @@ type CustomTableProps<T> = {
   data: T[];
   columns: ColumnDef<T, any>[]
 }
-export function TableCustom<T>({data, columns}: CustomTableProps<T>) {
+export function TableCustom<T>({data, columns}:Readonly< CustomTableProps<T>>) {
   const table = useReactTable({
     columns: columns,
     initialState: {

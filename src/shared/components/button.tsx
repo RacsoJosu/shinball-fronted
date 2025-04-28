@@ -7,7 +7,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
-        onClick={onClick ? onClick : undefined}
+        onClick={onClick ?? undefined}
         type={type}
         className={cn(
           "w-full flex justify-center gap-4 cursor-pointer mt-2 hover:bg-primary-500 bg-primary-400 text-white p-2.5 rounded-md shadow-md",

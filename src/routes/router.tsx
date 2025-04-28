@@ -28,7 +28,7 @@ interface Route {
   path: string;
   name: string;
   Icon?: IconType;
-  loader?: LoaderFunction<any>;
+  loader?: LoaderFunction<unknown>;
   index: boolean;
 }
 
