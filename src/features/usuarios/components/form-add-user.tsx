@@ -19,8 +19,11 @@ import { DatePickerForm } from "@/shared/components/date-picker";
 import { useState } from "react";
 import { addUserSchema } from "../schemas/perfil.schemas";
 
-function FormAddUser() {
+function  FormAddUser() {
   const navigate = useNavigate();
+
+
+
   const form = useForm({
     defaultValues: {
       firstName: "",
@@ -104,7 +107,7 @@ function FormAddUser() {
               register={form.register("email")}
             />
           </FormField>
-          <FormField error={form.formState.errors.birthDate}>
+          <FormField  error={form.formState.errors.birthDate}>
             <Label
               forHtml="Fecha de nacimiento"
               name="Fecha de nacimiento"

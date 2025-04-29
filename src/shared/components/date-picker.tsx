@@ -28,11 +28,11 @@ export function DatePickerForm({handleDateChange, date}: DatePickerProps) {
         <Button
           type="button"
           className={cn(
-            "w-full justify-start items-center text-black text-left focus-within:border-2 focus-within:border-[#6fafdad8] hover:bg-gray-100 bg-gray-50 shadow-none border-2 font-normal",
+            "w-full rounded-lg justify-start items-center mt-0 py-3 text-black text-left focus-within:border-2 focus-within:border-[#6fafdad8] hover:bg-gray-100 bg-gray-50 shadow-none border-1 font-normal",
             !date && "text-muted-foreground"
           )}
         >
-          <CalendarIcon className="mr-2 h-4 w-4" />
+          <CalendarIcon className="size-7" />
           {date ? (
             format(date, "PPP", { locale: es })
           ) : (

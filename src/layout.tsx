@@ -56,17 +56,18 @@ function RootLayout() {
             )}
           </button>
         </div>
-        <div className="flex flex-col items-center justify-center w-full gap-2 my-4">
+        <div className="flex  flex-col items-center justify-center w-full gap-2 my-4">
           <PropiedadesIcon
-            className={` fill-sky-900   ${
-              isCollapsed ? " h-10 w-10" : "h-25 w-25"
+            className={` transition-all  fill-sky-900   ${
+              isCollapsed ? " size-10" : "size-25"
             }   mx-auto`}
           />
-          {!isCollapsed && (
-            <span className="font-semibold text-sky-800 max-sm:hidden transition-opacity duration-500 ease-out delay-500 text-md">
+
+            {
+            !isCollapsed ?<span className={`font-semibold text-sky-800  text-md transition-opacity whitespace-nowrap duration-300 overflow-x-auto ${ isCollapsed ? "opacity-0" :"opacity-100"}`}>
               Admin Shinball
-            </span>
-          )}
+            </span> : null}
+
         </div>
 
         <ul className="flex flex-col gap-1  items-center w-full justify-center">
@@ -93,9 +94,9 @@ function RootLayout() {
 
                 {!isCollapsed && (
                   <span
-                    className={`text-lg max-sm:hidden  ${
+                    className={`w-full  text-lg max-sm:hidden   ${
                       isCollapsed ? "opacity-0" : "opacity-100"
-                    } transition-opacity duration-500 delay-200`}
+                    }  transition-opacity duration-500 delay-200 whitespace-nowrap`}
                   >
                     {name}
                   </span>
