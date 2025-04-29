@@ -145,7 +145,7 @@ function Pagination({ totalPages }: Readonly<{ totalPages?: number }>) {
               1
             );
 
-            console.log({ searchParams });
+
             setSearchParams((prev) => ({ ...prev, page: lastPage.toString() }));
           }}
           disabled={Math.max(Number(searchParams.get("page")), 1) === 1}
@@ -158,7 +158,7 @@ function Pagination({ totalPages }: Readonly<{ totalPages?: number }>) {
           className="size-auto rounded-full bg-white mt-0 p-0"
           onClick={() => {
             const nextPage = parseInt(searchParams.get("page") ?? "1", 10) + 1;
-            console.log({ searchParams });
+
             setSearchParams((prev) => {
               const params = new URLSearchParams(prev);
               params.set("page", nextPage.toString());
