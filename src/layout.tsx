@@ -58,8 +58,8 @@ function RootLayout() {
         </div>
         <div className="flex  flex-col items-center justify-center w-full gap-2 my-4">
           <PropiedadesIcon
-            className={` transition-all  fill-sky-900   ${
-              isCollapsed ? " size-10" : "size-25"
+            className={` transition-transform size-25 duration-300 ease-in-out  fill-sky-900   ${
+              isCollapsed ? " scale-50" : "scale-100"
             }   mx-auto`}
           />
 
@@ -157,7 +157,7 @@ export function DropdownMenuProfile() {
           >
 
             <span
-              className={`text-lg max-sm:hidden  opacity-100 transition-opacity duration-500 delay-200`}
+              className={`text-lg `}
             >
               Perfil
             </span>

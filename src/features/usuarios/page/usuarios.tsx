@@ -135,7 +135,7 @@ function Pagination({ totalPages }: Readonly<{ totalPages?: number }>) {
     select: (res) => res.data.data,
   });
   return (
-    <div className="h-2">
+    <div className=" flex justify-between w-full">
       <div className="flex items-center gap-2">
         <Button
           className="size-auto rounded-full bg-white mt-0 p-0"
@@ -181,8 +181,16 @@ function Pagination({ totalPages }: Readonly<{ totalPages?: number }>) {
         </span>
 
       </div>
-      <div>
+
+      <div className=" flex justify-end gap-6 ">
+        <Button type="button" className=" h-[40px] w-[150px]   ">
+            <span>Primera pagina</span>
+        </Button>
+        <Button type="button" className=" h-[40px] w-[150px] ">
+            <span>Ultima pagina</span>
+          </Button>
       </div>
+
     </div>
   );
 }
