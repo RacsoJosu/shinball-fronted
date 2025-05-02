@@ -5,6 +5,9 @@ export interface InfoUserType {
   id: string;
   email: string;
   name: string;
+  role: string,
+  birthDate: string;
+  createdAt: string;
 }
 
 interface AuthState {

@@ -37,7 +37,7 @@ function RootLayout() {
   }, []);
 
   return (
-    <div className="flex w-full h-screen">
+    <div className="flex w-full h-screen ">
       <nav
         className={`h-[100vh]   transition-all duration-500 ease-in-out overflow-hidden poppins-normal  ${
           isCollapsed ? "w-[60px]" : "w-[180px]"
@@ -56,11 +56,11 @@ function RootLayout() {
             )}
           </button>
         </div>
-        <div className="flex  flex-col items-center justify-center w-full gap-2 my-4">
-          <PropiedadesIcon
-            className={` transition-transform size-25 duration-300 ease-in-out  fill-sky-900   ${
+        <div className={` flex transition-transform    ${
               isCollapsed ? " scale-50" : "scale-100"
-            }   mx-auto`}
+            } flex-col items-center justify-center  w-auto gap-2 my-4`}>
+          <PropiedadesIcon
+            className={` size-25 duration-300 ease-in-out  fill-sky-900 `}
           />
 
             {
@@ -106,11 +106,11 @@ function RootLayout() {
           ))}
         </ul>
       </nav>
-      <main className="flex flex-col w-full ">
+      <main className="flex flex-col w-full flex-1 overflow-hidden ">
         <header className="bg-gray-100 px-2 flex flex-row-reverse flex-wrap items-center  shadow-gray-200 border-l-2 shadow-sm min-h-auto">
           <DropdownMenuProfile />
         </header>
-        <div  className="flex-1 overflow-y-auto p-12  mt-4">
+        <div  className="flex-1 overflow-y-auto p-12    mt-4">
         <Outlet />
 
         </div>
@@ -158,7 +158,7 @@ export function DropdownMenuProfile() {
 
             <span
               className={`text-lg `}
-            >
+             >
               Perfil
             </span>
           </NavLink>

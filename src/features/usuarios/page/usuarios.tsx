@@ -11,10 +11,7 @@ import { PropsWithChildren, Suspense } from "react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { UserType } from "../types/users-types";
 import { cn } from "@/lib/utils";
-import {
-  IoArrowBackCircleSharp,
-  IoArrowForwardCircleSharp,
-} from "react-icons/io5";
+import { LucideArrowLeft, LucideArrowLeftToLine, LucideArrowRight, LucideArrowRightToLine } from "lucide-react";
 
 function Usuarios() {
 
@@ -37,7 +34,7 @@ function Usuarios() {
         <Search />
       </HeaderPage>
 
-      <ContentPage className=" gap-12">
+      <ContentPage className=" gap-2">
         <Suspense
           fallback={
             <div className="h-full flex flex-col items-center justify-center w-full">
@@ -135,10 +132,22 @@ function Pagination({ totalPages }: Readonly<{ totalPages?: number }>) {
     select: (res) => res.data.data,
   });
   return (
-    <div className=" flex justify-between w-full">
+
       <div className="flex items-center gap-2">
         <Button
-          className="size-auto rounded-full bg-white mt-0 p-0"
+          className="size-auto rounded-full bg-primary-400 mt-0 p-1"
+          onClick={() => {
+
+
+            setSearchParams(() => ({page: "1" }));
+          }}
+          disabled={Math.max(Number(searchParams.get("page")), 1) === 1}
+          type="button"
+        >
+          <LucideArrowLeftToLine className="text-white hover:text-white bg-transparent rounded-full size-4" />
+        </Button>
+        <Button
+          className="size-auto rounded-full bg-primary-400 mt-0 p-1"
           onClick={() => {
             const lastPage = Math.max(
               parseInt(searchParams.get("page") ?? "1", 10) - 1,
@@ -151,11 +160,11 @@ function Pagination({ totalPages }: Readonly<{ totalPages?: number }>) {
           disabled={Math.max(Number(searchParams.get("page")), 1) === 1}
           type="button"
         >
-          <IoArrowBackCircleSharp className="text-primary-400 hover:text-white bg-transparent rounded-full size-6" />
+          <LucideArrowLeft className="text-white hover:text-white bg-transparent rounded-full size-4" />
         </Button>
 
         <Button
-          className="size-auto rounded-full bg-white mt-0 p-0"
+          className="size-auto rounded-full bg-primary-400 mt-0 p-1"
           onClick={() => {
             const nextPage = parseInt(searchParams.get("page") ?? "1", 10) + 1;
 
@@ -170,7 +179,21 @@ function Pagination({ totalPages }: Readonly<{ totalPages?: number }>) {
           }
           type="button"
         >
-          <IoArrowForwardCircleSharp className="text-primary-400 hover:text-white bg-transparent rounded-full size-6" />
+          <LucideArrowRight className="text-white hover:text-white bg-transparent rounded-full size-4" />
+        </Button>
+        <Button
+          className="size-auto rounded-full bg-primary-400 mt-0 p-1"
+          onClick={() => {
+
+
+            setSearchParams(() => ({ page: totalPages?.toString() ?? data?.totalPages.toString() }));
+          }}
+          disabled={
+            Math.max(Number(searchParams.get("page")), 1) === (totalPages ?? data.totalPages)
+          }
+          type="button"
+        >
+          <LucideArrowRightToLine className="text-white hover:text-white bg-transparent rounded-full size-4" />
         </Button>
 
         <span className="flex items-center gap-1">
@@ -180,18 +203,12 @@ function Pagination({ totalPages }: Readonly<{ totalPages?: number }>) {
           </strong>
         </span>
 
+
+
       </div>
 
-      <div className=" flex justify-end gap-6 ">
-        <Button type="button" className=" h-[40px] w-[150px]   ">
-            <span>Primera pagina</span>
-        </Button>
-        <Button type="button" className=" h-[40px] w-[150px] ">
-            <span>Ultima pagina</span>
-          </Button>
-      </div>
 
-    </div>
+
   );
 }
 export default Usuarios;
