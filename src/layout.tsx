@@ -110,7 +110,7 @@ function RootLayout() {
         <header className="bg-gray-100 px-2 flex flex-row-reverse flex-wrap items-center  shadow-gray-200 border-l-2 shadow-sm min-h-auto">
           <DropdownMenuProfile />
         </header>
-        <div  className="flex-1 overflow-y-auto p-12    mt-4">
+        <div  className="flex-1 overflow-y-auto pl-12 pr-12 pb-12     mt-4">
         <Outlet />
 
         </div>

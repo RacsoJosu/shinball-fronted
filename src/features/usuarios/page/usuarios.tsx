@@ -139,7 +139,12 @@ function Pagination({ totalPages }: Readonly<{ totalPages?: number }>) {
           onClick={() => {
 
 
-            setSearchParams(() => ({page: "1" }));
+            setSearchParams((prev) => {
+              const params = new URLSearchParams(prev);
+              params.set("page", "1");
+
+              return params;
+            });
           }}
           disabled={Math.max(Number(searchParams.get("page")), 1) === 1}
           type="button"
@@ -186,7 +191,12 @@ function Pagination({ totalPages }: Readonly<{ totalPages?: number }>) {
           onClick={() => {
 
 
-            setSearchParams(() => ({ page: totalPages?.toString() ?? data?.totalPages.toString() }));
+            setSearchParams((prev) => {
+              const params = new URLSearchParams(prev);
+              params.set("page", totalPages?.toString() ?? data?.totalPages.toString());
+
+              return params;
+            });
           }}
           disabled={
             Math.max(Number(searchParams.get("page")), 1) === (totalPages ?? data.totalPages)
