@@ -92,7 +92,7 @@ function FormLogin() {
           type="submit"
           disabled={loginMutation.isPending}
           className={`${
-            loginMutation.isPending ? "bg-gray-300 text-gray-400" : ""
+            loginMutation.isPending ? "bg-gray-300 text-gray-400 hover:bg-gray-300" : ""
           }`}
         >
           {
