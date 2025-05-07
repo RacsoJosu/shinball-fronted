@@ -6,7 +6,7 @@ function Perfil() {
 
   const navigate = useNavigate()
 
-  function onChangeTab( event: React.MouseEvent<HTMLElement>,
+  function onChangeTab(
     tab: string ) {
       navigate({
         pathname:tab
@@ -21,10 +21,10 @@ function Perfil() {
 
       >
         <TabsList  className=" rounded-none ">
-          <TabsTrigger  onClick={(event) => onChangeTab(event, "")} value={"perfil"}  className="rounded-none">
+          <TabsTrigger  onClick={() => onChangeTab( "")} value={"perfil"}  className="rounded-none">
             Informacion
           </TabsTrigger>
-        <TabsTrigger onClick={(event) => onChangeTab(event, "cuenta")} className="rounded-none" value="account">Cuenta</TabsTrigger>
+        <TabsTrigger onClick={() => onChangeTab( "cuenta")} className="rounded-none" value="account">Cuenta</TabsTrigger>
         </TabsList>
         <Outlet/>
       </Tabs>
