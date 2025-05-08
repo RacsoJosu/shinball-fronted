@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { ApiErrorResponse } from "@/lib/axios";
 import { useAuthStore } from "@/stores/auth.store";
+import { queryClient } from "@/providers/query-client";
 
 export function useLoginMutation() {
 
@@ -44,7 +45,8 @@ export function useLogoutMutation(idUser:string) {
   return useMutation({
     mutationKey: ["logout", idUser],
     mutationFn: Logout,
-    onSuccess: ({data}) => {
+    onSuccess: ({ data }) => {
+      queryClient.clear();
       toast.success(data.message);
       auth.clearToken();
       navigate("/login");

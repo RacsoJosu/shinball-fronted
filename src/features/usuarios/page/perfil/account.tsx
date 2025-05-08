@@ -2,7 +2,7 @@ import { TabsContent } from '@radix-ui/react-tabs'
 
 function Account() {
   return (
-      <TabsContent value="account">Change your password here.</TabsContent>
+      <TabsContent value="cuenta">Change your password here.</TabsContent>
   )
 }
 
