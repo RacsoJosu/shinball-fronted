@@ -7,7 +7,7 @@ function Perfil() {
   const location = useLocation();
   const currentLocation = getSubPathPerfil(location.pathname);
   const navigate = useNavigate()
-  console.log({currentLocation})
+
   function onChangeTab(
     tab: string ) {
       navigate({
