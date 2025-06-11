@@ -20,5 +20,23 @@ export default defineConfig({
     },
   },
   //  assetsInclude: ['**/*.html'],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+
+          if (id.includes("node_modules")) {
+            if (id.includes("react")) return "vendor-react";
+            if (id.includes("react-router-dom")) return "vendor-router";
+            if (id.includes("react-hook-form")) return "vendor-hook-form";
+            if (id.includes("zod")) return "vendor-zod";
+            if (id.includes("date-fns")) return "vendor-date-fns";
+            return "vendor";
+          }
+
+        },
+      },
+    },
+  },
 });
 

@@ -2,7 +2,7 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { IoMdCart } from "react-icons/io";
 import { IconType } from "react-icons";
 import { HiUsers } from "react-icons/hi2";
-import { lazy, LazyExoticComponent } from "react";
+import { lazy, LazyExoticComponent, Suspense } from "react";
 import Login from "@/features/auth/page/login";
 import SignUp from "@/features/auth/page/sign-up";
 import RootLayout from "@/layout";
@@ -13,7 +13,6 @@ import ErrorBoundary from "@/shared/components/error-boundary";
 import NotFound from "@/shared/components/not-found";
 import Usuarios from "@/features/usuarios/page/usuarios";
 import Perfil from "@/features/usuarios/page/perfil/perfil.page";
-import AgregarUsuario from "@/features/usuarios/page/agregar-usuario";
 import Informacion from "@/features/usuarios/page/perfil/informacion";
 
 import Account from "@/features/usuarios/page/perfil/account";
@@ -21,9 +20,15 @@ import Account from "@/features/usuarios/page/perfil/account";
 
 const Dashboard = lazy(() => import("../features/dashboard/page/dashboard"));
 const Productos = lazy(() => import("../features/productos/page/productos"));
-
+const UsersModuleLazy = lazy(()=> import("./users-routes"))
 export type JSXComponent = () => JSX.Element;
 type LazyComponent = LazyExoticComponent<JSXComponent>;
+
+const lazyLoad = (Component: LazyComponent) => (
+  <Suspense fallback={<div>Cargando módulo...</div>}>
+    <Component />
+  </Suspense>
+);
 
 interface Route {
   Component: LazyComponent | JSXComponent;
@@ -84,28 +89,15 @@ export const router = createBrowserRouter(
         {
           index: true,
           path: "dashboard",
-          element: <Dashboard />,
+          element: lazyLoad(Dashboard),
         },
         {
-          path: "usuarios",
-          children: [
-            {
-              index: true,
-              element: <Usuarios />,
-            },
-            {
-              path: "agregar",
-              element: <AgregarUsuario/>,
-            },
-            {
-              path: "editar",
-              element: <div>Editar</div>,
-            },
-          ],
+          path: "usuarios/*",
+          element: lazyLoad(UsersModuleLazy)
         },
         {
-          element: <Productos />,
           path: "productos",
+          element: lazyLoad(Productos),
         },
         {
           element: <Perfil />,
