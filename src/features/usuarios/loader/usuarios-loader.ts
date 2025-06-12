@@ -5,10 +5,10 @@ const validateSearchParams = (searchParams: URLSearchParams) => {
   }
   return { id: Number(id) };
 };
+
 export function loaderUsers({ request }: { request: Request }) {
-  const url = new URL(request.url)
+  const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
 
-  return validateSearchParams(searchParams)
-
+  return validateSearchParams(searchParams);
 }

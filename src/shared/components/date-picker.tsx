@@ -4,24 +4,16 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { Calendar as CalendarIcon } from "lucide-react";
 
-import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import { PropsWithChildren } from "react";
 
 type DatePickerProps = {
   date: Date | undefined;
-  handleDateChange: (
-    selectedDate: Date | undefined,
-  ) => void;
-} & PropsWithChildren
-export function DatePickerForm({handleDateChange, date}: DatePickerProps) {
-
-
+  handleDateChange: (selectedDate: Date | undefined) => void;
+} & PropsWithChildren;
+export function DatePickerForm({ handleDateChange, date }: DatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -33,11 +25,7 @@ export function DatePickerForm({handleDateChange, date}: DatePickerProps) {
           )}
         >
           <CalendarIcon className="size-7" />
-          {date ? (
-            format(date, "PPP", { locale: es })
-          ) : (
-            <span>Selecciona una fecha</span>
-          )}
+          {date ? format(date, "PPP", { locale: es }) : <span>Selecciona una fecha</span>}
         </Button>
       </PopoverTrigger>
 

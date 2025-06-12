@@ -1,12 +1,4 @@
-import {
-  MdKeyboardDoubleArrowRight,
-  MdKeyboardDoubleArrowLeft,
-} from "react-icons/md";
 import PropiedadesIcon from "@assets/propiedades-icons";
-import { NavLink, Outlet, useLoaderData, useLocation } from "react-router-dom";
-import { routes } from "./routes/router";
-import { PropsWithChildren, useEffect, useState } from "react";
-import { RiLogoutBoxLine } from "react-icons/ri";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,16 +6,20 @@ import {
   DropdownMenuItemProps,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
-import { Button } from "./shared/components/button";
+import { PropsWithChildren, useEffect, useState } from "react";
+import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { RiLogoutBoxLine } from "react-icons/ri";
 import { SlOptionsVertical } from "react-icons/sl";
-import { cn } from "./lib/utils";
+import { NavLink, Outlet, useLoaderData, useLocation } from "react-router-dom";
 import { useLogoutMutation } from "./features/auth/hooks/auth-hooks";
+import { cn } from "./lib/utils";
+import { routes } from "./routes/router";
+import { Button } from "./shared/components/button";
 import { InfoUserType } from "./stores/auth.store";
 function RootLayout() {
   const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleSidebar = () => setIsCollapsed((prev) => !prev);
-
 
   useEffect(() => {
     function handleResize() {
@@ -31,9 +27,9 @@ function RootLayout() {
     }
 
     handleResize();
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -56,18 +52,20 @@ function RootLayout() {
             )}
           </button>
         </div>
-        <div className={` flex transition-transform    ${
-              isCollapsed ? " scale-50" : "scale-100"
-            } flex-col items-center justify-center  w-auto gap-2 my-4`}>
-          <PropiedadesIcon
-            className={` size-25 duration-300 ease-in-out  fill-sky-900 `}
-          />
+        <div
+          className={` flex transition-transform    ${
+            isCollapsed ? " scale-50" : "scale-100"
+          } flex-col items-center justify-center  w-auto gap-2 my-4`}
+        >
+          <PropiedadesIcon className={` size-25 duration-300 ease-in-out  fill-sky-900 `} />
 
-            {
-            !isCollapsed ?<span className={`font-semibold text-sky-800  text-md transition-opacity whitespace-nowrap duration-300 overflow-x-auto ${ isCollapsed ? "opacity-0" :"opacity-100"}`}>
+          {!isCollapsed ? (
+            <span
+              className={`font-semibold text-sky-800  text-md transition-opacity whitespace-nowrap duration-300 overflow-x-auto ${isCollapsed ? "opacity-0" : "opacity-100"}`}
+            >
               Admin Shinball
-            </span> : null}
-
+            </span>
+          ) : null}
         </div>
 
         <ul className="flex flex-col gap-1  items-center w-full justify-center">
@@ -110,9 +108,8 @@ function RootLayout() {
         <header className="bg-gray-100 px-2 flex flex-row-reverse flex-wrap items-center  shadow-gray-200 border-l-2 shadow-sm min-h-auto">
           <DropdownMenuProfile />
         </header>
-        <div  className="flex-1 overflow-y-auto pl-12 pr-12 pb-12     mt-4">
-        <Outlet />
-
+        <div className="flex-1 overflow-y-auto pl-12 pr-12 pb-12     mt-4">
+          <Outlet />
         </div>
       </main>
     </div>
@@ -120,28 +117,17 @@ function RootLayout() {
 }
 
 export function DropdownMenuProfile() {
-
   return (
-    <DropdownMenu
-
-    >
-      <DropdownMenuTrigger asChild
-
-      >
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
         <div className="h-auto py-2">
-          <Button className="size-auto rounded-full mt-0 " type="button"
-
-          >
+          <Button className="size-auto rounded-full mt-0 " type="button">
             <SlOptionsVertical />
           </Button>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 shadow-md bg-white rounded-sm z-[100]">
-        <MenuItem
-          className="p-0"
-
-        asChild
-        >
+        <MenuItem className="p-0" asChild>
           <NavLink
             to={"perfil"}
             style={{
@@ -153,14 +139,8 @@ export function DropdownMenuProfile() {
               alignItems: "center",
               gap: "4px",
             }}
-
           >
-
-            <span
-              className={`text-lg `}
-             >
-              Perfil
-            </span>
+            <span className={`text-lg `}>Perfil</span>
           </NavLink>
         </MenuItem>
         <LogoutButton />
@@ -170,19 +150,14 @@ export function DropdownMenuProfile() {
 }
 
 export function LogoutButton() {
-
   const dataLoader = useLoaderData() as InfoUserType;
   const logoutMutation = useLogoutMutation(dataLoader.id);
   return (
     <MenuItem
       onClick={() => {
-
         logoutMutation.mutate();
       }}
-      className={cn(
-        "font-medium",
-        logoutMutation.isPending ? "bg-gray-300 text-gray-400" : ""
-      )}
+      className={cn("font-medium", logoutMutation.isPending ? "bg-gray-300 text-gray-400" : "")}
     >
       <RiLogoutBoxLine />
       Cerrar sesión

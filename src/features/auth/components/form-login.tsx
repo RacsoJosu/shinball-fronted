@@ -1,19 +1,26 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useForm } from "react-hook-form";
-import { loginUserSchema } from "../schemas/forms-schema";
-import { FormContent, FormField, FormHeader, FormTitle, InputForm, Label } from "@/shared/components/form.components";
-import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/shared/components/button";
+import {
+  FormContent,
+  FormField,
+  FormHeader,
+  FormTitle,
+  InputForm,
+  Label,
+} from "@/shared/components/form.components";
+import { useAuthStore } from "@/stores/auth.store";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { z } from "zod";
 import { useLoginMutation } from "../hooks/auth-hooks";
-import { toast } from "react-toastify";
-import { useAuthStore } from "@/stores/auth.store";
+import { loginUserSchema } from "../schemas/forms-schema";
 
 function FormLogin() {
-  const auth = useAuthStore()
+  const auth = useAuthStore();
 
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -29,14 +36,16 @@ function FormLogin() {
   const loginMutation = useLoginMutation();
 
   async function onSubmit(params: z.infer<typeof loginUserSchema>) {
-    await loginMutation.mutateAsync({ ...params }, {
-      onSuccess: ({ data }) => {
-
-      auth.setToken(data.data)
-      toast.success("Login realizado correctamente");
-      navigate("/dashboard");
-    },
-    });
+    await loginMutation.mutateAsync(
+      { ...params },
+      {
+        onSuccess: ({ data }) => {
+          auth.setToken(data.data);
+          toast.success("Login realizado correctamente");
+          navigate("/dashboard");
+        },
+      }
+    );
   }
   return (
     <div className="h-full  flex flex-col justify-center items-center">
@@ -50,10 +59,7 @@ function FormLogin() {
           <FormTitle title="Bienvenido a Shinball Admin." />
           <p>
             ¿No tienes una cuenta?{" "}
-            <Link
-              to={"/sign-up"}
-              className="underline underline-offset-4 text-primary-400"
-            >
+            <Link to={"/sign-up"} className="underline underline-offset-4 text-primary-400">
               {" "}
               Registrate
             </Link>
@@ -72,12 +78,7 @@ function FormLogin() {
           </FormField>
 
           <FormField error={errors.password}>
-            <Label
-              forHtml="password"
-              name="Contraseña"
-              key="password-label"
-              clasName=""
-            />
+            <Label forHtml="password" name="Contraseña" key="password-label" clasName="" />
             <InputForm
               placeholder="correo@example.com"
               register={register("password")}
@@ -95,14 +96,11 @@ function FormLogin() {
             loginMutation.isPending ? "bg-gray-300 text-gray-400 hover:bg-gray-300" : ""
           }`}
         >
-          {
-            loginMutation.isPending ? "Iniciando sesión..." : "Iniciar sesión"
-          }
+          {loginMutation.isPending ? "Iniciando sesión..." : "Iniciar sesión"}
         </Button>
       </form>
     </div>
   );
 }
-
 
 export default FormLogin;

@@ -1,26 +1,31 @@
-import { MdSpaceDashboard } from "react-icons/md";
-import { IoMdCart } from "react-icons/io";
-import { IconType } from "react-icons";
-import { HiUsers } from "react-icons/hi2";
-import { lazy, LazyExoticComponent, Suspense } from "react";
 import Login from "@/features/auth/page/login";
 import SignUp from "@/features/auth/page/sign-up";
 import RootLayout from "@/layout";
+import { lazy, LazyExoticComponent, Suspense } from "react";
+import { IconType } from "react-icons";
+import { HiUsers } from "react-icons/hi2";
+import { IoMdCart } from "react-icons/io";
+import { MdSpaceDashboard } from "react-icons/md";
 
-import { createBrowserRouter, LoaderFunction } from "react-router-dom";
 import { authLoader } from "@/features/auth/loaders/loader-auth";
+import Informacion from "@/features/usuarios/page/perfil/informacion";
+import Perfil from "@/features/usuarios/page/perfil/perfil.page";
+import Usuarios from "@/features/usuarios/page/usuarios";
 import ErrorBoundary from "@/shared/components/error-boundary";
 import NotFound from "@/shared/components/not-found";
-import Usuarios from "@/features/usuarios/page/usuarios";
-import Perfil from "@/features/usuarios/page/perfil/perfil.page";
-import Informacion from "@/features/usuarios/page/perfil/informacion";
+import { createBrowserRouter, LoaderFunction, redirect } from "react-router-dom";
 
+import { getUserByIdQueryOptions } from "@/features/usuarios/hooks/users-queries";
+import Editar from "@/features/usuarios/page/editar";
 import Account from "@/features/usuarios/page/perfil/account";
+import { queryClient } from "@/providers/query-client";
 // import { loaderUsers } from "@/features/usuarios/loader/usuarios-loader";
 
 const Dashboard = lazy(() => import("../features/dashboard/page/dashboard"));
 const Productos = lazy(() => import("../features/productos/page/productos"));
-const UsersModuleLazy = lazy(()=> import("./users-routes"))
+// const UsersModuleLazy = lazy(()=> import("./users-routes"))
+const UsuariosLazy = lazy(() => import("../features/usuarios/page/usuarios"));
+const AgregarUsuarioLazy = lazy(() => import("../features/usuarios/page/agregar-usuario"));
 export type JSXComponent = () => JSX.Element;
 type LazyComponent = LazyExoticComponent<JSXComponent>;
 
@@ -93,7 +98,38 @@ export const router = createBrowserRouter(
         },
         {
           path: "usuarios/*",
-          element: lazyLoad(UsersModuleLazy)
+          // element: lazyLoad(UsersModuleLazy),
+          children: [
+            {
+              index: true,
+              element: lazyLoad(UsuariosLazy),
+            },
+            {
+              path: "agregar",
+              element: lazyLoad(AgregarUsuarioLazy),
+            },
+            {
+              path: "editar",
+              loader: () => {
+                return redirect("/dashboard");
+              },
+            },
+            {
+              path: "editar/:idUser",
+              loader: async ({ params }) => {
+                console.log(params);
+                if (!params?.idUser) {
+                  return;
+                }
+                const data =
+                  queryClient.getQueryData(getUserByIdQueryOptions(params.idUser).queryKey) ??
+                  (await queryClient.fetchQuery(getUserByIdQueryOptions(params.idUser)));
+
+                return data.data.data;
+              },
+              element: <Editar />,
+            },
+          ],
         },
         {
           path: "productos",
@@ -105,13 +141,13 @@ export const router = createBrowserRouter(
           children: [
             {
               index: true,
-              element: <Informacion />
+              element: <Informacion />,
             },
             {
               path: "cuenta",
-              element:<Account />
-            }
-          ]
+              element: <Account />,
+            },
+          ],
         },
       ],
     },

@@ -1,9 +1,12 @@
-const PropiedadesIcon = ({className}:{ className: string}) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={512} height={512} className={className} viewBox="0 0 512 512" >
-
-
+const PropiedadesIcon = ({ className }: { className: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={512}
+    height={512}
+    className={className}
+    viewBox="0 0 512 512"
+  >
     <path
-
       stroke="url(#gradient1)"
       d="m242.5 5 5.5.5-5.5.5zm22 0 6.5.5-6.5.5zm-34 1 2.5.5-2.5.5zm50 0 2.5.5-2.5.5zm-45 11 2.5.5-2.5.5zm39 0 2.5.5-2.5.5zm152 0 2.5.5-2.5.5zm11 0 2.5.5-2.5.5zm-153 1 2.5.5-2.5.5zm184 10 1 2zm4 3 8 9zm-58 7-1 2zm38 1 6 7zm-68 1-1 2zm98 2 1 2zm-52 3 5.5.5-5.5.5zm-317 4-1 2zm307 0-3 4zm-314 5-1 2zm-4 3-1 2zm-5 4-1 2zm19 0-1 2zm284 1 .5 6.5h-1zm52 1 .5 4.5h-1zm-361 3-3 4zm17 1-1 2zm-5 4-1 2zm139 1-1 2zm27 0 1 2zm225 0 .5 3.5h-1zm-398 5-4 5zm351 1-2 3zm-27 2 1 2zm-147 1 .5 3.5h-1zm-35 1 .5 2.5h-1zm256 0 .5 3.5h-1zm-86 4q4.5 2 1 4zm-333 3 1 2zm283 2 1.5 2.5h-1zm-116 3 2 3zm27 0-2 3zm160 3 7.5.5-7.5.5zm-36 1-2 3zm82 3 4 5zm-91 6-2 3zm80 1 2 3zm19 2 2.5 1.5-1.5.5zm-86 1-2 3zm74 4 1 2zm-310 4 .5 109 24 .5-23.5.5-1.5-1.5zm129 0 .5 26.5h-1z"
       opacity={0.824}
@@ -35,7 +38,6 @@ const PropiedadesIcon = ({className}:{ className: string}) => (
       stroke="url(#gradient1)"
       d="M136.5 241h239l4.5 3.5q2.5 3.5 1 11l-2.5 3.5-2 1h-241l-3.5-2.5q-2.5-3.5-1-11l3.5-4.5zm54 44h132q7.4 1.1 10.5 6.5l11 55 2.5 3.5 13.5 8 6 10.5 1 19.5-25-.5q4.6-2.9 5-10l-1-5-4.5-5.5q-3.3-3.2-11-2-6.1 1.4-8.5 6.5l-1 10 4 6-137.5.5 2.5-3.5 1-11-6.5-7.5-9-1-7.5 4.5-3 8 1 5 4 5-25 .5q-2.6-23.3 10.5-32l13.5-7.5 10-52q1.5-6.5 6.5-9.5zm3.5 16-8 40 1 3h141l-8-41-1-2zm18 63 3 12q-1 4 1 4h81l3-14v-2zm-77 37h241.5l.5.5V412H135.5l-.5-.5zm18 24h30v14.5l-5.5 4.5h-19l-4.5-3.5-1-2zm176 0h30v13.5l-3.5 4.5-2 1h-19l-4.5-3.5-1-2z"
     />
-
   </svg>
-)
-export default PropiedadesIcon
+);
+export default PropiedadesIcon;

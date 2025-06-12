@@ -1,28 +1,16 @@
 import { cn } from "@/lib/utils";
 import { PropsWithChildren } from "react";
-import {
-  FieldError,
-  FieldErrorsImpl,
-  Merge,
-  UseFormRegisterReturn,
-} from "react-hook-form";
+import { FieldError, FieldErrorsImpl, Merge, UseFormRegisterReturn } from "react-hook-form";
 
 type FormFieldProps = {
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
 };
-export function FormField({
-  error,
-  children,
-}: FormFieldProps & PropsWithChildren) {
+export function FormField({ error, children }: FormFieldProps & PropsWithChildren) {
   return (
     <div className=" h-auto flex flex-col shrink-0 gap-1 items-start justify-center w-auto">
       {children}
 
-      {error && (
-        <span className="text-xs text-red-400">
-          {error.message?.toString()}
-        </span>
-      )}
+      {error && <span className="text-xs text-red-400">{error.message?.toString()}</span>}
     </div>
   );
 }
@@ -48,12 +36,7 @@ type InputTypeProps = {
   className?: string;
 };
 
-export function InputForm({
-  type,
-  register,
-  placeholder,
-  className,
-}: InputTypeProps) {
+export function InputForm({ type, register, placeholder, className }: InputTypeProps) {
   return (
     <input
       className={cn(
@@ -67,7 +50,6 @@ export function InputForm({
   );
 }
 
-
 export function FormHeader({ children }: PropsWithChildren) {
   return <div className="text-center">{children}</div>;
 }
@@ -76,13 +58,9 @@ type FormHeaderType = {
   title: string;
 };
 
-export function FormTitle(
-  props: FormHeaderType & React.HTMLAttributes<HTMLHeadingElement>
-) {
+export function FormTitle(props: FormHeaderType & React.HTMLAttributes<HTMLHeadingElement>) {
   return (
-    <h1 className={cn("font-bold text-3xl text-primary-400", props.className)}>
-      {props.title}
-    </h1>
+    <h1 className={cn("font-bold text-3xl text-primary-400", props.className)}>{props.title}</h1>
   );
 }
 

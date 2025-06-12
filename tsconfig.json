@@ -1,21 +1,16 @@
 {
   "files": [],
   "compilerOptions": {
-
     "esModuleInterop": true,
 
     "baseUrl": "./",
     "paths": {
-      "@/*":["src/*"],
+      "@/*": ["src/*"],
       "@features/*": ["src/features/*"],
       "@routes/*": ["src/routes/*"],
       "@utils/*": ["src/utils/*"],
-      "@assets/*": ["src/assets/*"],
-
+      "@assets/*": ["src/assets/*"]
     }
   },
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
 }

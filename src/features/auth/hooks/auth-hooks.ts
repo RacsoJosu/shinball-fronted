@@ -1,16 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
 import { Login, Logout, signUp } from "../services/auth-services";
 
+import { ApiErrorResponse } from "@/lib/axios";
+import { queryClient } from "@/providers/query-client";
+import { useAuthStore } from "@/stores/auth.store";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios";
-import { ApiErrorResponse } from "@/lib/axios";
-import { useAuthStore } from "@/stores/auth.store";
-import { queryClient } from "@/providers/query-client";
 
 export function useLoginMutation() {
-
-
   return useMutation({
     mutationKey: ["login"],
     mutationFn: Login,
@@ -24,7 +22,6 @@ export function useLoginMutation() {
 }
 
 export function useSignUpMutation() {
-
   return useMutation({
     mutationKey: ["signup"],
     mutationFn: signUp,
@@ -37,10 +34,9 @@ export function useSignUpMutation() {
   });
 }
 
-
-export function useLogoutMutation(idUser:string) {
+export function useLogoutMutation(idUser: string) {
   const navigate = useNavigate();
-    const auth = useAuthStore()
+  const auth = useAuthStore();
 
   return useMutation({
     mutationKey: ["logout", idUser],

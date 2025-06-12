@@ -4,7 +4,6 @@
 function Dashboard() {
   // const userData = useRouteLoaderData("root") as InfoUserType;
 
-
   return (
     <div className="w-full">
       <h1>Dashboard</h1>

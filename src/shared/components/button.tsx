@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { forwardRef, PropsWithChildren } from "react";
 
-type ButtonProps = PropsWithChildren & React.ButtonHTMLAttributes<HTMLButtonElement>
+type ButtonProps = PropsWithChildren & React.ButtonHTMLAttributes<HTMLButtonElement>;
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ type, onClick, className, children, ...rest }, ref) => {
     return (

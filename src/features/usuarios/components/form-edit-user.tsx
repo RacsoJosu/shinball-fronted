@@ -14,16 +14,17 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { z } from "zod";
 import { addUserSchema } from "../schemas/perfil.schemas";
+import { UserType } from "../types/users-types";
 
-function FormAddUser() {
+function FormAEditUser({ data }: { data: UserType }) {
   const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      birthDate: new Date(),
+      firstName: data?.firstName,
+      lastName: data?.lastName,
+      email: data?.email,
+      birthDate: data?.createdAt ? new Date(data.createdAt) : new Date(),
       password: "",
       passwordConfirmation: "",
     },
@@ -135,4 +136,4 @@ function FormAddUser() {
   );
 }
 
-export default FormAddUser;
+export default FormAEditUser;

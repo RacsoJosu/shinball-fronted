@@ -1,9 +1,8 @@
 import axiosIntance, { ApiSuccessResponse } from "@/lib/axios";
-import { z } from "zod";
-import { loginUserSchema } from "../schemas/forms-schema";
 import { InfoUserType } from "@/stores/auth.store";
+import { z } from "zod";
 import { SignUpFormValues } from "../interfaces/auth";
-
+import { loginUserSchema } from "../schemas/forms-schema";
 
 export async function Login(body: z.infer<typeof loginUserSchema>) {
   return await axiosIntance.post<ApiSuccessResponse<string>>("auth/login", {

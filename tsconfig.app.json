@@ -9,13 +9,12 @@
     "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
-      "@/*":["src/*"],
+      "@/*": ["src/*"],
       "@features/*": ["src/features/*"],
       "@routes/*": ["src/routes/*"],
       "@utils/*": ["src/utils/*"],
 
-      "@assets/*": ["src/assets/*"],
-
+      "@assets/*": ["src/assets/*"]
     },
 
     /* Bundler mode */
