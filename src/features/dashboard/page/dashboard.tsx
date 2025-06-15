@@ -1,5 +1,5 @@
 // import { InfoUserType } from "@/stores/auth.store";
-// import {  useRouteLoaderData } from "react-router-dom";
+// import {  useRouteLoaderData } from "react-router";
 
 function Dashboard() {
   // const userData = useRouteLoaderData("root") as InfoUserType;

@@ -7,6 +7,7 @@ function App() {
   return (
     <TanstackQueryProvider>
       <ToastContainer position="bottom-right" />
+
       <Navigation />
     </TanstackQueryProvider>
   );

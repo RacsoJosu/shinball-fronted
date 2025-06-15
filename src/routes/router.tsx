@@ -12,25 +12,27 @@ import Informacion from "@/features/usuarios/page/perfil/informacion";
 import Perfil from "@/features/usuarios/page/perfil/perfil.page";
 import Usuarios from "@/features/usuarios/page/usuarios";
 import ErrorBoundary from "@/shared/components/error-boundary";
-import NotFound from "@/shared/components/not-found";
-import { createBrowserRouter, LoaderFunction, redirect } from "react-router-dom";
+import { createBrowserRouter, LoaderFunction, redirect } from "react-router";
 
 import { getUserByIdQueryOptions } from "@/features/usuarios/hooks/users-queries";
 import Editar from "@/features/usuarios/page/editar";
 import Account from "@/features/usuarios/page/perfil/account";
 import { queryClient } from "@/providers/query-client";
+import RootLoader from "@/root-loader";
+import NotFound from "@/shared/components/not-found";
+import { ErrorElementUsersModule } from "./users-routes";
 // import { loaderUsers } from "@/features/usuarios/loader/usuarios-loader";
 
 const Dashboard = lazy(() => import("../features/dashboard/page/dashboard"));
 const Productos = lazy(() => import("../features/productos/page/productos"));
-// const UsersModuleLazy = lazy(()=> import("./users-routes"))
-const UsuariosLazy = lazy(() => import("../features/usuarios/page/usuarios"));
-const AgregarUsuarioLazy = lazy(() => import("../features/usuarios/page/agregar-usuario"));
+const UsersModuleLazy = lazy(() => import("./users-routes"));
+// const UsuariosLazy = lazy(() => import("../features/usuarios/page/usuarios"));
+// const AgregarUsuarioLazy = lazy(() => import("../features/usuarios/page/agregar-usuario"));
 export type JSXComponent = () => JSX.Element;
 type LazyComponent = LazyExoticComponent<JSXComponent>;
 
 const lazyLoad = (Component: LazyComponent) => (
-  <Suspense fallback={<div>Cargando módulo...</div>}>
+  <Suspense fallback={<RootLoader />}>
     <Component />
   </Suspense>
 );
@@ -98,16 +100,9 @@ export const router = createBrowserRouter(
         },
         {
           path: "usuarios/*",
-          // element: lazyLoad(UsersModuleLazy),
+          element: lazyLoad(UsersModuleLazy),
+          errorElement: <ErrorElementUsersModule />,
           children: [
-            {
-              index: true,
-              element: lazyLoad(UsuariosLazy),
-            },
-            {
-              path: "agregar",
-              element: lazyLoad(AgregarUsuarioLazy),
-            },
             {
               path: "editar",
               loader: () => {
@@ -117,7 +112,6 @@ export const router = createBrowserRouter(
             {
               path: "editar/:idUser",
               loader: async ({ params }) => {
-                console.log(params);
                 if (!params?.idUser) {
                   return;
                 }

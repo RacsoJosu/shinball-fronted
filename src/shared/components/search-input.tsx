@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createSearchParams, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { createSearchParams, useLocation, useNavigate, useSearchParams } from "react-router";
 import { useDebounce } from "../hooks/use-debounced";
 import Input from "./input";
 

@@ -11,7 +11,7 @@ import {
 } from "@/shared/components/form.components";
 import { useAuthStore } from "@/stores/auth.store";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { z } from "zod";
 import { useLoginMutation } from "../hooks/auth-hooks";

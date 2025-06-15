@@ -1,11 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { Login, Logout, signUp } from "../services/auth-services";
 
-import { ApiErrorResponse } from "@/lib/axios";
 import { queryClient } from "@/providers/query-client";
 import { useAuthStore } from "@/stores/auth.store";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 export function useLoginMutation() {
@@ -13,11 +11,11 @@ export function useLoginMutation() {
     mutationKey: ["login"],
     mutationFn: Login,
 
-    onError: (error) => {
-      if (axios.isAxiosError<ApiErrorResponse>(error)) {
-        toast.error(error.response?.data?.details);
-      }
-    },
+    // onError: (error) => {
+    //   if (axios.isAxiosError<ApiErrorResponse>(error)) {
+    //     toast.error(error.response?.data?.details);
+    //   }
+    // },
   });
 }
 
@@ -26,11 +24,11 @@ export function useSignUpMutation() {
     mutationKey: ["signup"],
     mutationFn: signUp,
 
-    onError: (error) => {
-      if (axios.isAxiosError<ApiErrorResponse>(error)) {
-        toast.error(error.response?.data?.details);
-      }
-    },
+    // onError: (error) => {
+    //   if (axios.isAxiosError<ApiErrorResponse>(error)) {
+    //     toast.error(error.response?.data?.details);
+    //   }
+    // },
   });
 }
 
@@ -47,10 +45,10 @@ export function useLogoutMutation(idUser: string) {
       auth.clearToken();
       navigate("/login");
     },
-    onError: (error) => {
-      if (axios.isAxiosError<ApiErrorResponse>(error)) {
-        toast.error(error.response?.data?.details);
-      }
-    },
+    // onError: (error) => {
+    //   if (axios.isAxiosError<ApiErrorResponse>(error)) {
+    //     toast.error(error.response?.data?.details);
+    //   }
+    // },
   });
 }

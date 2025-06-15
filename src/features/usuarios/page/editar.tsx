@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import FormAEditUser from "../components/form-edit-user";
 import { getUserByIdQueryOptions } from "../hooks/users-queries";
 // import { UserType } from "../types/users-types"

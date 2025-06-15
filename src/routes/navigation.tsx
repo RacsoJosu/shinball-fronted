@@ -1,14 +1,7 @@
-import { RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router";
 import { router } from "./router.tsx";
 
 function Navigation() {
-  return (
-    <RouterProvider
-      router={router}
-      future={{
-        v7_startTransition: true,
-      }}
-    />
-  );
+  return <RouterProvider router={router} />;
 }
 export default Navigation;

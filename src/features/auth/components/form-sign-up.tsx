@@ -9,7 +9,7 @@ import { format } from "date-fns";
 import { DatePickerForm } from "@/shared/components/date-picker";
 import Form from "@/shared/components/form";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { z } from "zod";
 import { useSignUpMutation } from "../hooks/auth-hooks";

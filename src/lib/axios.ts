@@ -34,6 +34,7 @@ axiosInstance.interceptors.response.use(
     ) {
       toast.error("Sesión expirada. vuelve a iniciar sesión");
       error.message = "Sesión expirada. Vuelve a iniciar sesión.";
+      return;
     }
 
     if (error.response?.status === 500) {

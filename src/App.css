@@ -263,6 +263,40 @@
   --color-sidebar: var(--sidebar);
 }
 
+
+.loader {
+border: 16px solid var(--color-primary-100);
+border-top: 16px solid var(--color-primary-300);
+border-bottom: 16px solid var(--color-cyan-700);
+border-radius: 50%;
+width: 80px;
+height: 80px;
+animation: spiner-custom  1.2s linear infinite;
+}
+
+.loader-ball{
+
+  animation: throb 1.2s linear infinite
+}
+
+@keyframes spiner-custom {
+  0% {transform: rotate(0deg)}
+
+  100% {transform: rotate(360deg)}
+}
+@keyframes throb {
+  0% {
+    transform: scale(1)
+  }
+    50% {
+      transform: scale(1.5)
+    }
+
+        100% {
+          transform: scale(1)
+        }
+
+}
 @layer base {
   * {
     @apply border-border outline-ring/50;

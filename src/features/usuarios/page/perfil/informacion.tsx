@@ -3,7 +3,7 @@ import { FormContent, FormField, InputForm, Label } from "@/shared/components/fo
 import { InfoUserType } from "@/stores/auth.store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useRouteLoaderData } from "react-router-dom";
+import { useRouteLoaderData } from "react-router";
 import { updateInfoUser } from "../../schemas/perfil.schemas";
 
 import { Button } from "@/shared/components/button";

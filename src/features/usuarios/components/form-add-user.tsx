@@ -10,7 +10,7 @@ import { DatePickerForm } from "@/shared/components/date-picker";
 import Form from "@/shared/components/form";
 import { useSignUpMutation } from "@features/auth/hooks/auth-hooks";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { z } from "zod";
 import { addUserSchema } from "../schemas/perfil.schemas";

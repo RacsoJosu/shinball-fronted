@@ -1,4 +1,4 @@
-import { Navigate, NavLink, useLocation } from "react-router-dom";
+import { Navigate, NavLink, useLocation } from "react-router";
 import { Button } from "./button";
 
 function NotFound() {

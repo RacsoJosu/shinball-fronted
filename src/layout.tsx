@@ -10,7 +10,7 @@ import { PropsWithChildren, useEffect, useState } from "react";
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { SlOptionsVertical } from "react-icons/sl";
-import { NavLink, Outlet, useLoaderData, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLoaderData, useLocation } from "react-router";
 import { useLogoutMutation } from "./features/auth/hooks/auth-hooks";
 import { cn } from "./lib/utils";
 import { routes } from "./routes/router";

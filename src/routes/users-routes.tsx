@@ -1,16 +1,27 @@
 // import { getUserByIdQueryOptions } from "@/features/usuarios/hooks/users-queries";
 import AgregarUsuario from "@/features/usuarios/page/agregar-usuario";
-import Editar from "@/features/usuarios/page/editar";
 import Usuarios from "@/features/usuarios/page/usuarios";
+import NotFound from "@/shared/components/not-found";
+import { AxiosError } from "axios";
 // import { queryClient } from "@/providers/query-client";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useRouteError } from "react-router";
 
 export default function UsuariosRoutes() {
   return (
     <Routes>
       <Route index element={<Usuarios />} />
       <Route path="agregar" element={<AgregarUsuario />} />
-      <Route path="editar/:idUser" element={<Editar />} />
     </Routes>
   );
+}
+
+export function ErrorElementUsersModule() {
+  const error = useRouteError();
+  if (error instanceof AxiosError) {
+    if (error.status === 404) {
+      return <NotFound />;
+    }
+  }
+
+  return <Navigate to="/dashboard" />;
 }

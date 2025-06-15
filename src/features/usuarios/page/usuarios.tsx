@@ -10,9 +10,9 @@ import {
   LucideArrowRight,
   LucideArrowRightToLine,
 } from "lucide-react";
-import { PropsWithChildren, Suspense } from "react";
+import { PropsWithChildren } from "react";
 import { BsFillPersonPlusFill } from "react-icons/bs";
-import { NavLink, useSearchParams } from "react-router-dom";
+import { NavLink, useSearchParams } from "react-router";
 import HeaderPage from "../components/header-page";
 import { TableCustom } from "../components/table-users";
 import { useUsersQueryOptions } from "../hooks/users-queries";
@@ -38,16 +38,8 @@ function Usuarios() {
       </HeaderPage>
 
       <ContentPage className=" gap-2">
-        <Suspense
-          fallback={
-            <div className="h-full flex flex-col items-center justify-center w-full">
-              <p>Cargando ...</p>{" "}
-            </div>
-          }
-        >
-          <Pagination />
-          <TableWrapper />
-        </Suspense>
+        <Pagination />
+        <TableWrapper />
       </ContentPage>
     </div>
   );
