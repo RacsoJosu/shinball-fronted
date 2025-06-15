@@ -4,33 +4,40 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "@/shared/components/button";
 import { FormField, InputForm, Label } from "@/shared/components/form.components";
 
-import { format } from "date-fns";
-
 import { DatePickerForm } from "@/shared/components/date-picker";
 import Form from "@/shared/components/form";
-import { useSignUpMutation } from "@features/auth/hooks/auth-hooks";
 import { useState } from "react";
-import { useNavigate } from "react-router";
-import { toast } from "react-toastify";
-import { z } from "zod";
 import { addUserSchema } from "../schemas/perfil.schemas";
 import { UserType } from "../types/users-types";
 
-function FormAEditUser({ data }: { data: UserType }) {
-  const navigate = useNavigate();
-
+function FormUser({
+  data,
+  onSubmit,
+}: {
+  data?: UserType;
+  onSubmit: (
+    data: {
+      firstName: string;
+      lastName: string;
+      email: string;
+      birthDate?: Date | null | undefined;
+    } & {
+      password: string;
+      passwordConfirmation: string;
+    }
+  ) => void;
+}) {
   const form = useForm({
     defaultValues: {
-      firstName: data?.firstName,
-      lastName: data?.lastName,
-      email: data?.email,
+      firstName: data?.firstName ?? "",
+      lastName: data?.lastName ?? "",
+      email: data?.email ?? "",
       birthDate: data?.createdAt ? new Date(data.createdAt) : new Date(),
       password: "",
       passwordConfirmation: "",
     },
     resolver: zodResolver(addUserSchema),
   });
-  const singunpMutation = useSignUpMutation();
 
   const [date, setDate] = useState<Date>();
 
@@ -41,24 +48,11 @@ function FormAEditUser({ data }: { data: UserType }) {
       shouldDirty: true,
     });
   };
-  function onSubmit(data: z.infer<typeof addUserSchema>): void {
-    const formData = {
-      ...data,
-      birthDate: data.birthDate ? format(data.birthDate, "yyyy-MM-dd") : null,
-    };
-
-    singunpMutation.mutate(formData, {
-      onSuccess: ({ data }) => {
-        toast.success(data.message);
-        navigate("/usuarios");
-      },
-    });
-  }
 
   return (
     <FormProvider {...form}>
       <Form
-        onSubmit={() => onSubmit}
+        onSubmit={form.handleSubmit(onSubmit)}
         className=" grid grid-cols-1 min-xs:grid-cols-2 min-md:grid-cols-3 gap-8"
       >
         <FormField error={form.formState.errors.firstName}>
@@ -136,4 +130,4 @@ function FormAEditUser({ data }: { data: UserType }) {
   );
 }
 
-export default FormAEditUser;
+export default FormUser;

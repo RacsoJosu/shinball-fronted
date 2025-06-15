@@ -10,25 +10,18 @@ export function useLoginMutation() {
   return useMutation({
     mutationKey: ["login"],
     mutationFn: Login,
-
-    // onError: (error) => {
-    //   if (axios.isAxiosError<ApiErrorResponse>(error)) {
-    //     toast.error(error.response?.data?.details);
-    //   }
-    // },
   });
 }
 
 export function useSignUpMutation() {
+  const navigate = useNavigate();
   return useMutation({
     mutationKey: ["signup"],
     mutationFn: signUp,
-
-    // onError: (error) => {
-    //   if (axios.isAxiosError<ApiErrorResponse>(error)) {
-    //     toast.error(error.response?.data?.details);
-    //   }
-    // },
+    onSuccess: ({ data }) => {
+      toast.success(data.message);
+      navigate("/usuarios");
+    },
   });
 }
 
@@ -45,10 +38,5 @@ export function useLogoutMutation(idUser: string) {
       auth.clearToken();
       navigate("/login");
     },
-    // onError: (error) => {
-    //   if (axios.isAxiosError<ApiErrorResponse>(error)) {
-    //     toast.error(error.response?.data?.details);
-    //   }
-    // },
   });
 }
