@@ -151,10 +151,5 @@ export const router = createBrowserRouter(
       element: <NotFound />,
     },
   ],
-  {
-    future: {
-      v7_fetcherPersist: true,
-      v7_relativeSplatPath: true,
-    },
-  }
+  {}
 );
