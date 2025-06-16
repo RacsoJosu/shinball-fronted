@@ -7,14 +7,18 @@ import { FormField, InputForm, Label } from "@/shared/components/form.components
 import { DatePickerForm } from "@/shared/components/date-picker";
 import Form from "@/shared/components/form";
 import { useState } from "react";
-import { addUserSchema } from "../schemas/perfil.schemas";
+import { addUserSchema, updateUserSchema } from "../schemas/perfil.schemas";
 import { UserType } from "../types/users-types";
 
 function FormUser({
   data,
   onSubmit,
+  isDisabled,
+  buttonText = "Agregar",
 }: {
   data?: UserType;
+  isDisabled: boolean;
+  buttonText?: string;
   onSubmit: (
     data: {
       firstName: string;
@@ -32,14 +36,16 @@ function FormUser({
       firstName: data?.firstName ?? "",
       lastName: data?.lastName ?? "",
       email: data?.email ?? "",
-      birthDate: data?.createdAt ? new Date(data.createdAt) : new Date(),
+      birthDate: data?.birthDate ? new Date(data.birthDate) : new Date(),
       password: "",
       passwordConfirmation: "",
     },
-    resolver: zodResolver(addUserSchema),
+    resolver: data ? zodResolver(updateUserSchema) : zodResolver(addUserSchema),
   });
 
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<Date | undefined>(
+    data?.birthDate ? new Date(data.birthDate) : new Date()
+  );
 
   const handleDateChange = (selectedDate: Date | undefined) => {
     setDate(selectedDate);
@@ -119,11 +125,11 @@ function FormUser({
         <Button
           type="submit"
           className={`min-xs:col-end-3 min-md:col-end-4  ${
-            form.formState.isSubmitted ? "bg-gray-300 text-gray-400 hover:none" : ""
+            isDisabled ? "bg-gray-300 text-gray-400 hover:none" : ""
           }`}
-          disabled={form.formState.isSubmitted}
+          disabled={isDisabled}
         >
-          Agregar
+          {buttonText}
         </Button>
       </Form>
     </FormProvider>

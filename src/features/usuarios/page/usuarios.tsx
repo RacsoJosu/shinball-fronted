@@ -12,12 +12,12 @@ import {
 } from "lucide-react";
 import { PropsWithChildren } from "react";
 import { BsFillPersonPlusFill } from "react-icons/bs";
-import { NavLink, useSearchParams } from "react-router";
+import { FaEdit } from "react-icons/fa";
+import { NavLink, useNavigate, useSearchParams } from "react-router";
 import HeaderPage from "../components/header-page";
 import { TableCustom } from "../components/table-users";
 import { useUsersQueryOptions } from "../hooks/users-queries";
 import { UserType } from "../types/users-types";
-
 function Usuarios() {
   return (
     <div className="flex flex-col flex-wrap gap-8 ">
@@ -75,10 +75,31 @@ const columns = [
   columnHelper.accessor((row) => row.role, {
     id: "role",
     cell: (info) => <span>{info.getValue()}</span>,
-    header: () => <span>Role</span>,
+    header: () => <span>role</span>,
+    footer: (info) => info.column.id,
+  }),
+  columnHelper.accessor((row) => row.role, {
+    id: "accion",
+    cell: (info) => <AccionTableUser idUser={info.cell.row.original.id}></AccionTableUser>,
+    header: () => <span></span>,
     footer: (info) => info.column.id,
   }),
 ];
+
+function AccionTableUser({ idUser }: { idUser: string }) {
+  const navigate = useNavigate();
+  return (
+    <div>
+      <Button
+        onClick={() => {
+          navigate(`/usuarios/editar/${idUser}`);
+        }}
+      >
+        <FaEdit />
+      </Button>
+    </div>
+  );
+}
 
 function TableWrapper() {
   const [searchParams] = useSearchParams();

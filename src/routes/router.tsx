@@ -15,6 +15,7 @@ import ErrorBoundary from "@/shared/components/error-boundary";
 import { createBrowserRouter, LoaderFunction, redirect } from "react-router";
 
 import { getUserByIdQueryOptions } from "@/features/usuarios/hooks/users-queries";
+import AgregarUsuario from "@/features/usuarios/page/agregar-usuario";
 import Editar from "@/features/usuarios/page/editar";
 import Account from "@/features/usuarios/page/perfil/account";
 import { queryClient } from "@/providers/query-client";
@@ -25,8 +26,8 @@ import { ErrorElementUsersModule } from "./users-routes";
 
 const Dashboard = lazy(() => import("../features/dashboard/page/dashboard"));
 const Productos = lazy(() => import("../features/productos/page/productos"));
-const UsersModuleLazy = lazy(() => import("./users-routes"));
-// const UsuariosLazy = lazy(() => import("../features/usuarios/page/usuarios"));
+// const UsersModuleLazy = lazy(() => import("./users-routes"));
+const UsuariosLazy = lazy(() => import("../features/usuarios/page/usuarios"));
 // const AgregarUsuarioLazy = lazy(() => import("../features/usuarios/page/agregar-usuario"));
 export type JSXComponent = () => JSX.Element;
 type LazyComponent = LazyExoticComponent<JSXComponent>;
@@ -100,21 +101,23 @@ export const router = createBrowserRouter(
         },
         {
           path: "usuarios/*",
-          element: lazyLoad(UsersModuleLazy),
           errorElement: <ErrorElementUsersModule />,
           children: [
             {
-              path: "editar",
-              loader: () => {
-                return redirect("/dashboard");
-              },
+              index: true,
+              element: lazyLoad(UsuariosLazy),
+            },
+            {
+              path: "agregar",
+              element: <AgregarUsuario />,
             },
             {
               path: "editar/:idUser",
               loader: async ({ params }) => {
                 if (!params?.idUser) {
-                  return;
+                  return redirect("/dashboard");
                 }
+
                 const data =
                   queryClient.getQueryData(getUserByIdQueryOptions(params.idUser).queryKey) ??
                   (await queryClient.fetchQuery(getUserByIdQueryOptions(params.idUser)));

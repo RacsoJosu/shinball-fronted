@@ -10,6 +10,7 @@ export interface UserType {
   email: string;
   role: string;
   createdAt: string;
+  birthDate?: string | null | undefined;
 }
 
 export interface UsersType extends WithPaginationType {

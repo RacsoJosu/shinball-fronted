@@ -6,20 +6,20 @@ import { addUserSchema } from "../schemas/perfil.schemas";
 
 function AgregarUsuario() {
   const singunpMutation = useSignUpMutation();
-  function onSubmit(data: z.infer<typeof addUserSchema>): void {
+  async function onSubmit(data: z.infer<typeof addUserSchema>): Promise<void> {
     const formData = {
       ...data,
       birthDate: data.birthDate ? format(data.birthDate, "yyyy-MM-dd") : null,
     };
 
-    singunpMutation.mutate(formData);
+    await singunpMutation.mutateAsync(formData);
   }
   return (
     <div className="h-auto w-full flex flex-col gap-12  ">
       <h1 className="font-semibold text-3xl  min-md:text-4xl   text-primary-400 text-start">
         Agregar
       </h1>
-      <FormUser onSubmit={onSubmit} />
+      <FormUser onSubmit={onSubmit} isDisabled={singunpMutation.isPending} />
     </div>
   );
 }
