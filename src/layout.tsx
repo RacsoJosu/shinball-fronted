@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PropiedadesIcon from "@assets/propiedades-icons";
 import {
   DropdownMenu,
@@ -10,7 +11,7 @@ import { PropsWithChildren, useEffect, useState } from "react";
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { SlOptionsVertical } from "react-icons/sl";
-import { NavLink, Outlet, useLoaderData, useLocation } from "react-router";
+import { NavLink, Outlet, useLoaderData, useLocation, useNavigate } from "react-router";
 import { useLogoutMutation } from "./features/auth/hooks/auth-hooks";
 import { cn } from "./lib/utils";
 import { routes } from "./routes/router";
@@ -18,6 +19,7 @@ import { Button } from "./shared/components/button";
 import { InfoUserType } from "./stores/auth.store";
 function RootLayout() {
   const location = useLocation();
+
   const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleSidebar = () => setIsCollapsed((prev) => !prev);
 
@@ -30,6 +32,18 @@ function RootLayout() {
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === "auth-storage" && JSON.parse(event.newValue ?? "")?.state.token === null) {
+        navigate("/login");
+      }
+    };
+
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
   return (

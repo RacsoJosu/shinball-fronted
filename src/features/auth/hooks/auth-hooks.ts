@@ -32,10 +32,10 @@ export function useLogoutMutation(idUser: string) {
   return useMutation({
     mutationKey: ["logout", idUser],
     mutationFn: Logout,
-    onSuccess: ({ data }) => {
-      queryClient.clear();
-      toast.success(data.message);
+    onSuccess: async ({ data }) => {
       auth.clearToken();
+      await queryClient.clear();
+      toast.success(data.message);
       navigate("/login");
     },
   });

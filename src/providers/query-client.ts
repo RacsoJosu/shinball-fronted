@@ -7,7 +7,7 @@ export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60 * 5, // 5 minutos
-      refetchOnMount: "always",
+      refetchOnMount: true,
       refetchOnWindowFocus: true,
       refetchOnReconnect: true,
       retry: 3,
