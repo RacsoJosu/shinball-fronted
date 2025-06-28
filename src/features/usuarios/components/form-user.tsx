@@ -4,6 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "@/shared/components/button";
 import { FormField, InputForm, Label } from "@/shared/components/form.components";
 
+import { cn } from "@/lib/utils";
 import { DatePickerForm } from "@/shared/components/date-picker";
 import Form from "@/shared/components/form";
 import { useState } from "react";
@@ -14,8 +15,12 @@ function FormUser({
   data,
   onSubmit,
   isDisabled,
+  className,
   buttonText = "Agregar",
+  render,
 }: {
+  render: () => JSX.Element;
+  className?: string;
   data?: UserType;
   isDisabled: boolean;
   buttonText?: string;
@@ -59,7 +64,7 @@ function FormUser({
     <FormProvider {...form}>
       <Form
         onSubmit={form.handleSubmit(onSubmit)}
-        className=" grid grid-cols-1 min-xs:grid-cols-2 min-md:grid-cols-3 gap-8"
+        className={cn(" grid grid-cols-1 min-xs:grid-cols-2 min-md:grid-cols-3 gap-8", className)}
       >
         <FormField error={form.formState.errors.firstName}>
           <Label forHtml="nombre" name="Nombres" clasName="" key={"nombre"} />
@@ -122,15 +127,19 @@ function FormUser({
             register={form.register("passwordConfirmation")}
           />
         </FormField>
-        <Button
-          type="submit"
-          className={`min-xs:col-end-3 min-md:col-end-4  ${
-            isDisabled ? "bg-gray-300 text-gray-400 hover:none" : ""
-          }`}
-          disabled={isDisabled}
-        >
-          {buttonText}
-        </Button>
+        {render ? (
+          render()
+        ) : (
+          <Button
+            type="submit"
+            className={`min-xs:col-end-3 min-md:col-end-4  ${
+              isDisabled ? "bg-gray-300 text-gray-400 hover:none" : ""
+            }`}
+            disabled={isDisabled}
+          >
+            {buttonText}
+          </Button>
+        )}
       </Form>
     </FormProvider>
   );
