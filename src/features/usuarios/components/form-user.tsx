@@ -19,7 +19,7 @@ function FormUser({
   buttonText = "Agregar",
   render,
 }: {
-  render: () => JSX.Element;
+  render?: () => JSX.Element;
   className?: string;
   data?: UserType;
   isDisabled: boolean;
