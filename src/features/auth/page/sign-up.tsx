@@ -18,7 +18,7 @@ function SignUp() {
     await singunpMutation.mutateAsync(formData);
   }
   return (
-    <div className=" flex flex-col items-center  md:flex-row gap-4 ">
+    <div className="  size-full flex flex-col items-center  md:flex-row gap-4 ">
       <div className="size-full ">
         <FormUser
           className="min-md:grid-cols-2 px-12"
@@ -38,7 +38,7 @@ function SignUp() {
         />
       </div>
       <div className="size-full hidden md:block ">
-        <div className="p-12">
+        <div className="p-12 ">
           <SignUpImg className="" />
         </div>
       </div>

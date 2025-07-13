@@ -64,6 +64,13 @@ export function FormTitle(props: FormHeaderType & React.HTMLAttributes<HTMLHeadi
   );
 }
 
-export function FormContent({ children }: PropsWithChildren) {
-  return <div className="flex  w-full flex-col gap-6 ">{children}</div>;
+export function FormContent({
+  children,
+  ...props
+}: PropsWithChildren<React.HTMLAttributes<HTMLDivElement>>) {
+  return (
+    <div className="flex  w-full flex-col gap-6 " {...props}>
+      {children}
+    </div>
+  );
 }

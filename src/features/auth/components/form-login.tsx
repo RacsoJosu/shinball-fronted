@@ -48,15 +48,16 @@ function FormLogin() {
     );
   }
   return (
-    <div className="h-full  flex flex-col justify-center items-center">
+    <div className="h-full  flex  ">
       <form
         className="
-      flex flex-col gap-6 justify-center items-center
+       flex-1
+      flex flex-col gap-6 justify-center items-center px-8
       "
         onSubmit={handleSubmit((values) => onSubmit(values))}
       >
         <FormHeader>
-          <FormTitle title="Bienvenido a Shinball Admin." />
+          <FormTitle title="Bienvenido de nuevo." />
           <p>
             ¿No tienes una cuenta?{" "}
             <Link to={"/sign-up"} className="underline underline-offset-4 text-primary-400">
@@ -65,7 +66,7 @@ function FormLogin() {
             </Link>
           </p>
         </FormHeader>
-        <FormContent>
+        <FormContent className="w-full md:w-[370px] ">
           <FormField error={errors.email}>
             <Label forHtml="email" name="Email" key="email-label" clasName="" />
             <InputForm
@@ -87,18 +88,19 @@ function FormLogin() {
               className="w-full"
             />
           </FormField>
+          <Button
+            type="submit"
+            disabled={loginMutation.isPending}
+            className={`${
+              loginMutation.isPending ? "bg-gray-300 text-gray-400 hover:bg-gray-300" : ""
+            }`}
+          >
+            {loginMutation.isPending ? "Iniciando sesión..." : "Iniciar sesión"}
+          </Button>
         </FormContent>
-
-        <Button
-          type="submit"
-          disabled={loginMutation.isPending}
-          className={`${
-            loginMutation.isPending ? "bg-gray-300 text-gray-400 hover:bg-gray-300" : ""
-          }`}
-        >
-          {loginMutation.isPending ? "Iniciando sesión..." : "Iniciar sesión"}
-        </Button>
       </form>
+
+      <div className=" flex-2 bg-primary-500 hidden md:block "></div>
     </div>
   );
 }
