@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { createSearchParams, useLocation, useNavigate, useSearchParams } from "react-router";
-import { useDebounce } from "../hooks/use-debounced";
+import { useDebounceCallback } from "../hooks/use-debounced";
 import Input from "./input";
 
-export function Search() {
+export function Search({ placeholder = "Busca un usuario" }: { placeholder?: string }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const [inputValue, setInputValue] = useState(searchParams.get("search") ?? "");
-  const debouncedValue = useDebounce({ value: inputValue, delay: 300 });
+  const [searchValue, setSearchValue] = useState(searchParams.get("search") ?? "");
 
-  useEffect(() => {
-    if (debouncedValue.trim() === "") {
+  function search(text: string) {
+    console.log(text);
+    if (text.trim() === "") {
       setSearchParams((prev) => {
         const params = new URLSearchParams(prev);
         params.delete("search");
@@ -23,22 +23,24 @@ export function Search() {
         pathname: location.pathname,
 
         search: createSearchParams({
-          search: debouncedValue,
+          search: text,
           page: "1",
         }).toString(),
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedValue]);
+  }
+  const debounceCallback = useDebounceCallback(search, 500);
   return (
     <Input
       type="text"
-      placeholder="Busca un usuario"
+      placeholder={placeholder}
       className="bg-white text-gray-800 w-full"
-      value={inputValue}
+      value={searchValue}
       onChange={(event) => {
+        const value = event.target.value;
         event.preventDefault();
-        setInputValue(event.target.value);
+        debounceCallback(value);
+        setSearchValue(value);
       }}
     />
   );
