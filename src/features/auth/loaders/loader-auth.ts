@@ -5,11 +5,9 @@ import { redirect } from "react-router";
 import { useAuthQueryOptions } from "../hooks/auth-queries";
 
 export const authLoader = async () => {
-  const user =
-    queryClient.getQueryData(useAuthQueryOptions().queryKey) ??
-    (await queryClient.fetchQuery(useAuthQueryOptions()));
+  const user = await queryClient.ensureQueryData(useAuthQueryOptions());
 
-  if (!user) {
+  if (!user?.data.data) {
     return redirect("/login");
   }
 

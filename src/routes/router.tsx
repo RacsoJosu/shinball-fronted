@@ -91,7 +91,11 @@ export const router = createBrowserRouter(
       id: "root",
       path: "/",
       loader: authLoader,
-      element: <RootLayout />,
+      element: (
+        <Suspense fallback={<RootLoader />}>
+          <RootLayout />
+        </Suspense>
+      ),
       errorElement: <ErrorBoundary />,
       children: [
         {

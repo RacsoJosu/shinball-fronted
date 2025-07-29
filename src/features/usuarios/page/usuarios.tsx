@@ -1,24 +1,27 @@
-import { cn } from "@/lib/utils";
 import { Button } from "@/shared/components/button";
+import { ContentPage } from "@/shared/components/content-page";
+import { Pagination } from "@/shared/components/pagination";
 import { Search } from "@/shared/components/search-input";
 import { Title } from "@/shared/components/title";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { createColumnHelper } from "@tanstack/react-table";
-import {
-  LucideArrowLeft,
-  LucideArrowLeftToLine,
-  LucideArrowRight,
-  LucideArrowRightToLine,
-} from "lucide-react";
-import { PropsWithChildren } from "react";
 import { BsFillPersonPlusFill } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
 import { NavLink, useNavigate, useSearchParams } from "react-router";
-import HeaderPage from "../components/header-page";
-import { TableCustom } from "../components/table-users";
+import HeaderPage from "../../../shared/components/header-page";
+import { TableCustom } from "../../../shared/components/table";
 import { useUsersQueryOptions } from "../hooks/users-queries";
 import { UserType } from "../types/users-types";
 function Usuarios() {
+  const [searchParams] = useSearchParams();
+  const { data, isPending } = useQuery({
+    ...useUsersQueryOptions(
+      searchParams.get("search") ?? "",
+      Number(searchParams.get("page")) || 1,
+      10
+    ),
+    select: (res) => res.data.data,
+  });
   return (
     <div className="flex flex-col flex-wrap gap-8 ">
       <HeaderPage>
@@ -38,7 +41,7 @@ function Usuarios() {
       </HeaderPage>
 
       <ContentPage className=" gap-2">
-        <Pagination />
+        {!isPending ? <Pagination totalPages={data?.totalPages ?? 0} /> : null}
         <TableWrapper />
       </ContentPage>
     </div>
@@ -115,99 +118,4 @@ function TableWrapper() {
   return <TableCustom data={data.users} columns={columns} />;
 }
 
-function ContentPage({
-  children,
-  className,
-  ...props
-}: PropsWithChildren &
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
-  return (
-    <div className={cn("flex flex-col gap-4 flex-1 ", className)} {...props}>
-      {children}
-    </div>
-  );
-}
-
-function Pagination({ totalPages }: Readonly<{ totalPages?: number }>) {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const { data } = useSuspenseQuery({
-    ...useUsersQueryOptions(
-      searchParams.get("search") ?? "",
-      Number(searchParams.get("page")) || 1,
-      10
-    ),
-    select: (res) => res.data.data,
-  });
-  return (
-    <div className="flex items-center gap-2">
-      <Button
-        className="size-auto rounded-full bg-primary-400 mt-0 p-1"
-        onClick={() => {
-          setSearchParams((prev) => {
-            const params = new URLSearchParams(prev);
-            params.set("page", "1");
-
-            return params;
-          });
-        }}
-        disabled={Math.max(Number(searchParams.get("page")), 1) === 1}
-        type="button"
-      >
-        <LucideArrowLeftToLine className="text-white hover:text-white bg-transparent rounded-full size-4" />
-      </Button>
-      <Button
-        className="size-auto rounded-full bg-primary-400 mt-0 p-1"
-        onClick={() => {
-          const lastPage = Math.max(parseInt(searchParams.get("page") ?? "1", 10) - 1, 1);
-
-          setSearchParams((prev) => ({ ...prev, page: lastPage.toString() }));
-        }}
-        disabled={Math.max(Number(searchParams.get("page")), 1) === 1}
-        type="button"
-      >
-        <LucideArrowLeft className="text-white hover:text-white bg-transparent rounded-full size-4" />
-      </Button>
-
-      <Button
-        className="size-auto rounded-full bg-primary-400 mt-0 p-1"
-        onClick={() => {
-          const nextPage = parseInt(searchParams.get("page") ?? "1", 10) + 1;
-
-          setSearchParams((prev) => {
-            const params = new URLSearchParams(prev);
-            params.set("page", nextPage.toString());
-            return params;
-          });
-        }}
-        disabled={Math.max(Number(searchParams.get("page")), 1) === (totalPages ?? data.totalPages)}
-        type="button"
-      >
-        <LucideArrowRight className="text-white hover:text-white bg-transparent rounded-full size-4" />
-      </Button>
-      <Button
-        className="size-auto rounded-full bg-primary-400 mt-0 p-1"
-        onClick={() => {
-          setSearchParams((prev) => {
-            const params = new URLSearchParams(prev);
-            params.set("page", totalPages?.toString() ?? data?.totalPages.toString());
-
-            return params;
-          });
-        }}
-        disabled={Math.max(Number(searchParams.get("page")), 1) === (totalPages ?? data.totalPages)}
-        type="button"
-      >
-        <LucideArrowRightToLine className="text-white hover:text-white bg-transparent rounded-full size-4" />
-      </Button>
-
-      <span className="flex items-center gap-1">
-        <div>Page</div>
-        <strong>
-          {Math.max(Number(searchParams.get("page")), 1)} of {totalPages ?? data.totalPages}
-        </strong>
-      </span>
-    </div>
-  );
-}
 export default Usuarios;
