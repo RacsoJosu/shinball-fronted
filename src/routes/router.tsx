@@ -89,7 +89,7 @@ export const router = createBrowserRouter(
     },
     {
       path: "/",
-      loader: async () => {
+      loader: () => {
         return authLoader(queryClient);
       },
       element: <RootLayout />,

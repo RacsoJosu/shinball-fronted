@@ -28,12 +28,12 @@ function App() {
   // // allowing observation even if the monitoring code is added after the event occurs
   // observer.observe({ type: "paint", buffered: true });
   return (
-    <TanstackQueryProvider>
-      <ToastContainer position="bottom-right" />
-      <Suspense fallback={<RootLoader />}>
+    <Suspense fallback={<RootLoader />}>
+      <TanstackQueryProvider>
+        <ToastContainer position="bottom-right" />
         <Navigation />
-      </Suspense>
-    </TanstackQueryProvider>
+      </TanstackQueryProvider>
+    </Suspense>
   );
 }
 
