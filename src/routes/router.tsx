@@ -88,9 +88,11 @@ export const router = createBrowserRouter(
       element: <SignUp />,
     },
     {
+      id: "root",
       path: "/",
       loader: () => {
-        return authLoader(queryClient);
+        const loader = authLoader(queryClient);
+        return loader();
       },
       element: <RootLayout />,
       errorElement: <ErrorBoundary />,

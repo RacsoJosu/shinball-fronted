@@ -1,6 +1,5 @@
 import { getStateAuth } from "@/stores/auth.store";
 import axios, { AxiosError } from "axios";
-import { toast } from "react-toastify";
 
 export type ApiError = AxiosError<ApiErrorResponse>;
 export interface ApiSuccessResponse<T> {
@@ -26,23 +25,20 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (
-      error.response?.status === 401 ||
-      (error instanceof Error && error.message.includes("Sesión expirada"))
-    ) {
-      toast.error("Sesión expirada. vuelve a iniciar sesión");
-      error.message = "Sesión expirada. Vuelve a iniciar sesión.";
-      return;
-    }
+  (response) => response
+  // (error) => {
+  //   const status = error.response?.status ?? error.response.data.statuscode ?? 500;
+  //   const data = error.response?.data;
 
-    if (error.response?.status === 500) {
-      error.message = "Error interno del servidor.";
-    }
+  //   if (Number(status) === 403 || Number(status) === 401) {
+  //     toast.error("Sesión expirada. vuelve a iniciar sesión");
 
-    return Promise.reject(error);
-  }
+  //     localStorage.clear();
+  //     error.message = "Sesión expirada. Vuelve a iniciar sesión.";
+  //   }
+
+  //   return data;
+  // }
 );
 axiosInstance.interceptors.request.use((config) => {
   const token = getStateAuth().token;
