@@ -1,6 +1,6 @@
 import Login from "@/features/auth/page/login";
 import SignUp from "@/features/auth/page/sign-up";
-import RootLayout from "@/layout";
+// import RootLayout from "@/layout";
 import { lazy, LazyExoticComponent, Suspense } from "react";
 import { IconType } from "react-icons";
 import { HiUsers } from "react-icons/hi2";
@@ -13,7 +13,6 @@ import Usuarios from "@/features/usuarios/page/usuarios";
 import ErrorBoundary from "@/shared/components/error-boundary";
 import { createBrowserRouter, LoaderFunction, Navigate, redirect } from "react-router";
 
-import { authLoader } from "@/features/auth/loaders/loader-auth";
 import { getUserByIdQueryOptions } from "@/features/usuarios/hooks/users-queries";
 import AgregarUsuario from "@/features/usuarios/page/agregar-usuario";
 import Editar from "@/features/usuarios/page/editar";
@@ -26,6 +25,8 @@ import { ErrorElementUsersModule } from "./users-routes";
 
 const Dashboard = lazy(() => import("../features/dashboard/page/dashboard"));
 const Productos = lazy(() => import("../features/productos/page/productos"));
+const RootLayout = lazy(() => import("../layout"));
+
 // const UsersModuleLazy = lazy(() => import("./users-routes"));
 const UsuariosLazy = lazy(() => import("../features/usuarios/page/usuarios"));
 // const AgregarUsuarioLazy = lazy(() => import("../features/usuarios/page/agregar-usuario"));
@@ -90,11 +91,11 @@ export const router = createBrowserRouter(
     {
       id: "root",
       path: "/",
-      loader: () => {
-        const loader = authLoader(queryClient);
-        return loader();
+      element: lazyLoad(RootLayout),
+      loader: async () => {
+        const { authLoader } = await import("../features/auth/loaders/loader-auth"); // 👈 carga peresosa
+        return authLoader(queryClient)();
       },
-      element: <RootLayout />,
       errorElement: <ErrorBoundary />,
       children: [
         {
