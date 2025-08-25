@@ -1,14 +1,14 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-
-import { queryClient } from "@/providers/query-client";
+import { QueryClient } from "@tanstack/react-query";
 import { redirect } from "react-router";
-import { useAuthQueryOptions } from "../hooks/auth-queries";
+import { getAuthQueryOptions } from "../hooks/auth-queries";
 
-export const authLoader = async () => {
-  const user = await queryClient.ensureQueryData(useAuthQueryOptions());
+export const authLoader = (queryClient: QueryClient) => async () => {
+  const user =
+    queryClient.getQueryData(getAuthQueryOptions().queryKey) ??
+    (await queryClient.fetchQuery(getAuthQueryOptions()));
 
   if (!user?.data.data) {
-    return redirect("/login");
+    throw redirect("/login");
   }
 
   return user.data.data;

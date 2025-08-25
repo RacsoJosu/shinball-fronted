@@ -7,13 +7,13 @@ import { HiUsers } from "react-icons/hi2";
 import { IoMdCart } from "react-icons/io";
 import { MdSpaceDashboard } from "react-icons/md";
 
-import { authLoader } from "@/features/auth/loaders/loader-auth";
 import Informacion from "@/features/usuarios/page/perfil/informacion";
 import Perfil from "@/features/usuarios/page/perfil/perfil.page";
 import Usuarios from "@/features/usuarios/page/usuarios";
 import ErrorBoundary from "@/shared/components/error-boundary";
 import { createBrowserRouter, LoaderFunction, redirect } from "react-router";
 
+import { authLoader } from "@/features/auth/loaders/loader-auth";
 import { getUserByIdQueryOptions } from "@/features/usuarios/hooks/users-queries";
 import AgregarUsuario from "@/features/usuarios/page/agregar-usuario";
 import Editar from "@/features/usuarios/page/editar";
@@ -88,14 +88,11 @@ export const router = createBrowserRouter(
       element: <SignUp />,
     },
     {
-      id: "root",
       path: "/",
-      loader: authLoader,
-      element: (
-        <Suspense fallback={<RootLoader />}>
-          <RootLayout />
-        </Suspense>
-      ),
+      loader: async () => {
+        return authLoader(queryClient);
+      },
+      element: <RootLayout />,
       errorElement: <ErrorBoundary />,
       children: [
         {

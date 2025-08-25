@@ -1,7 +1,10 @@
 import "@/App.css";
 import { ToastContainer } from "react-toastify";
 import TanstackQueryProvider from "./providers/tanstack-query-provider";
-import Navigation from "./routes/navigation";
+// import Navigation from "./routes/navigation";
+import { lazy, Suspense } from "react";
+import RootLoader from "./root-loader";
+const Navigation = lazy(() => import("./routes/navigation"));
 
 function App() {
   // const entryHandler: PerformanceObserverCallback = (list) => {
@@ -27,7 +30,9 @@ function App() {
   return (
     <TanstackQueryProvider>
       <ToastContainer position="bottom-right" />
-      <Navigation />
+      <Suspense fallback={<RootLoader />}>
+        <Navigation />
+      </Suspense>
     </TanstackQueryProvider>
   );
 }

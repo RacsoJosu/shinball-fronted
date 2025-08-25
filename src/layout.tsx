@@ -7,21 +7,27 @@ import {
   DropdownMenuItemProps,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { PropsWithChildren, useEffect, useState } from "react";
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { SlOptionsVertical } from "react-icons/sl";
-import { NavLink, Outlet, useLoaderData, useLocation, useNavigate } from "react-router";
+import {
+  NavLink,
+  Outlet,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  useNavigation,
+} from "react-router";
 import { useLogoutMutation } from "./features/auth/hooks/auth-hooks";
-import { useAuthQueryOptions } from "./features/auth/hooks/auth-queries";
 import { cn } from "./lib/utils";
+import RootLoader from "./root-loader";
 import { routes } from "./routes/router";
 import { Button } from "./shared/components/button";
 import { InfoUserType } from "./stores/auth.store";
-function RootLayout() {
-  useSuspenseQuery(useAuthQueryOptions());
 
+function RootLayout() {
+  const navigation = useNavigation();
   const location = useLocation();
 
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -127,7 +133,7 @@ function RootLayout() {
           <DropdownMenuProfile />
         </header>
         <div className="flex-1 overflow-y-auto pl-12 pr-12 pb-12     mt-4">
-          <Outlet />
+          {navigation.state === "loading" ? <RootLoader /> : <Outlet />}
         </div>
       </main>
     </div>
