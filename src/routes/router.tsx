@@ -11,7 +11,7 @@ import Informacion from "@/features/usuarios/page/perfil/informacion";
 import Perfil from "@/features/usuarios/page/perfil/perfil.page";
 import Usuarios from "@/features/usuarios/page/usuarios";
 import ErrorBoundary from "@/shared/components/error-boundary";
-import { createBrowserRouter, LoaderFunction, redirect } from "react-router";
+import { createBrowserRouter, LoaderFunction, Navigate, redirect } from "react-router";
 
 import { authLoader } from "@/features/auth/loaders/loader-auth";
 import { getUserByIdQueryOptions } from "@/features/usuarios/hooks/users-queries";
@@ -95,6 +95,10 @@ export const router = createBrowserRouter(
       element: <RootLayout />,
       errorElement: <ErrorBoundary />,
       children: [
+        {
+          path: "/",
+          element: <Navigate to={"/dashboard"} />,
+        },
         {
           index: true,
           path: "dashboard",
