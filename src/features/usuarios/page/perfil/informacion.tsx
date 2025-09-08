@@ -1,19 +1,19 @@
 import { useLoginMutation } from "@/features/auth/hooks/auth-hooks";
 import { FormContent, FormField, InputForm, Label } from "@/shared/components/form.components";
-import { InfoUserType } from "@/stores/auth.store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useRouteLoaderData } from "react-router";
 import { updateInfoUser } from "../../schemas/perfil.schemas";
 
+import { getAuthQueryOptions } from "@/features/auth/hooks/auth-queries";
 import { Button } from "@/shared/components/button";
 import { TabsContent } from "@radix-ui/react-tabs";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { z } from "zod";
 
 // import { differenceInYears, format, formatDistanceToNow, parseISO } from "date-fns";
 // import { es } from 'date-fns/locale'
 function Informacion() {
-  const userData = useRouteLoaderData("root") as InfoUserType;
+  const { data: userData } = useSuspenseQuery(getAuthQueryOptions());
   // const birthDate = parseISO(userData.birthDate);
   // const createdAt = parseISO(userData.createdAt);
 
@@ -27,8 +27,8 @@ function Informacion() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: userData.email,
-      fullName: userData.name,
+      email: userData?.data.data?.email,
+      fullName: userData?.data.data?.name,
     },
     resolver: zodResolver(updateInfoUser),
   });

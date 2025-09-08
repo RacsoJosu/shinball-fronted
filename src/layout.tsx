@@ -12,22 +12,13 @@ import { PropsWithChildren, useEffect, useState } from "react";
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { SlOptionsVertical } from "react-icons/sl";
-import {
-  Navigate,
-  NavLink,
-  Outlet,
-  useLoaderData,
-  useLocation,
-  useNavigate,
-  useNavigation,
-} from "react-router";
+import { Navigate, NavLink, Outlet, useLocation, useNavigate, useNavigation } from "react-router";
 import { useLogoutMutation } from "./features/auth/hooks/auth-hooks";
 import { getAuthQueryOptions } from "./features/auth/hooks/auth-queries";
 import { cn } from "./lib/utils";
 import RootLoader from "./root-loader";
 import { routes } from "./routes/router";
 import { Button } from "./shared/components/button";
-import { InfoUserType } from "./stores/auth.store";
 
 function RootLayoutWrapper() {
   const { isPending, data } = useQuery(getAuthQueryOptions());
@@ -191,8 +182,9 @@ export function DropdownMenuProfile() {
 }
 
 export function LogoutButton() {
-  const dataLoader = useLoaderData() as InfoUserType;
-  const logoutMutation = useLogoutMutation(dataLoader.id);
+  const { data } = useQuery(getAuthQueryOptions());
+
+  const logoutMutation = useLogoutMutation(data?.data.data?.id ?? "");
   return (
     <MenuItem
       onClick={() => {
