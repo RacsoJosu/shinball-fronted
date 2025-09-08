@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
+
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "format": "prettier \"**/*.{ts,tsx,js,jsx,json,md}\" --write",
-    "preview": "vite preview"
+    "preview": "vite preview --port 3000"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

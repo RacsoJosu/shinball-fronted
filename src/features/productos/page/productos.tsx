@@ -1,3 +1,4 @@
+import RootLoader from "@/root-loader";
 import { Button } from "@/shared/components/button";
 import { ContentPage } from "@/shared/components/content-page";
 import HeaderPage from "@/shared/components/header-page";
@@ -7,6 +8,7 @@ import { TableCustom } from "@/shared/components/table";
 import { Title } from "@/shared/components/title";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { createColumnHelper } from "@tanstack/react-table";
+import { Suspense } from "react";
 import { BsFillPersonPlusFill } from "react-icons/bs";
 import { NavLink, useSearchParams } from "react-router";
 import { getProductosQueryOptions } from "../hooks/productos.queries-options";
@@ -42,7 +44,9 @@ function Productos() {
 
       <ContentPage className=" gap-2">
         {!isPending ? <Pagination totalPages={data?.totalPages ?? 0} /> : null}
-        <TableWrapper />
+        <Suspense fallback={<RootLoader />}>
+          <TableWrapper />
+        </Suspense>
       </ContentPage>
     </div>
   );
@@ -112,9 +116,9 @@ function TableWrapper() {
       Number(searchParams.get("page")) || 1,
       10
     ),
-    select: (res) => res.data.data,
+    // select: (res) => res.data.data,
   });
 
-  return <TableCustom data={data.properties} columns={columns} />;
+  return <TableCustom data={data.data.data.properties} columns={columns} />;
 }
 export default Productos;

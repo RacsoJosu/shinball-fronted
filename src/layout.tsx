@@ -7,11 +7,13 @@ import {
   DropdownMenuItemProps,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
+import { useQuery } from "@tanstack/react-query";
 import { PropsWithChildren, useEffect, useState } from "react";
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { SlOptionsVertical } from "react-icons/sl";
 import {
+  Navigate,
   NavLink,
   Outlet,
   useLoaderData,
@@ -20,11 +22,26 @@ import {
   useNavigation,
 } from "react-router";
 import { useLogoutMutation } from "./features/auth/hooks/auth-hooks";
+import { getAuthQueryOptions } from "./features/auth/hooks/auth-queries";
 import { cn } from "./lib/utils";
 import RootLoader from "./root-loader";
 import { routes } from "./routes/router";
 import { Button } from "./shared/components/button";
 import { InfoUserType } from "./stores/auth.store";
+
+function RootLayoutWrapper() {
+  const { isPending, data } = useQuery(getAuthQueryOptions());
+
+  if (isPending) {
+    return <RootLoader />;
+  }
+
+  if (!data?.data.data) {
+    return <Navigate to="/login" />;
+  }
+
+  return <RootLayout />;
+}
 
 function RootLayout() {
   const navigation = useNavigation();
@@ -209,4 +226,4 @@ function MenuItem({
   );
 }
 
-export default RootLayout;
+export default RootLayoutWrapper;

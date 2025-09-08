@@ -1,6 +1,6 @@
 import Login from "@/features/auth/page/login";
 import SignUp from "@/features/auth/page/sign-up";
-// import RootLayout from "@/layout";
+import RootLayout from "@/layout";
 import { lazy, LazyExoticComponent, Suspense } from "react";
 import { IconType } from "react-icons";
 import { HiUsers } from "react-icons/hi2";
@@ -20,12 +20,13 @@ import Account from "@/features/usuarios/page/perfil/account";
 import { queryClient } from "@/providers/query-client";
 import RootLoader from "@/root-loader";
 import NotFound from "@/shared/components/not-found";
+import Productos from "../features/productos/page/productos";
 import { ErrorElementUsersModule } from "./users-routes";
 // import { loaderUsers } from "@/features/usuarios/loader/usuarios-loader";
 
 const Dashboard = lazy(() => import("../features/dashboard/page/dashboard"));
-const Productos = lazy(() => import("../features/productos/page/productos"));
-const RootLayout = lazy(() => import("../layout"));
+// const Productos = lazy(() => import("../features/productos/page/productos"));
+// const RootLayout = lazy(() => import("../layout"));
 
 // const UsersModuleLazy = lazy(() => import("./users-routes"));
 const UsuariosLazy = lazy(() => import("../features/usuarios/page/usuarios"));
@@ -91,11 +92,10 @@ export const router = createBrowserRouter(
     {
       id: "root",
       path: "/",
-      element: lazyLoad(RootLayout),
-      loader: async () => {
-        const { authLoader } = await import("../features/auth/loaders/loader-auth"); // 👈 carga peresosa
-        return authLoader(queryClient)();
-      },
+      // loader: () => {
+      //   return authLoader(queryClient);
+      // },
+      element: <RootLayout />,
       errorElement: <ErrorBoundary />,
       children: [
         {
@@ -138,7 +138,7 @@ export const router = createBrowserRouter(
         },
         {
           path: "productos",
-          element: lazyLoad(Productos),
+          element: <Productos />,
         },
         {
           element: <Perfil />,
