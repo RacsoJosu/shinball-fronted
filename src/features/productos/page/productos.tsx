@@ -9,11 +9,10 @@ import { Title } from "@/shared/components/title";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Suspense } from "react";
-import { BsFillPersonPlusFill } from "react-icons/bs";
+import { MdAddShoppingCart } from "react-icons/md";
 import { NavLink, useSearchParams } from "react-router";
 import { getProductosQueryOptions } from "../hooks/productos.queries-options";
 import { Property } from "../service/productos.service";
-
 function Productos() {
   const [searchParams] = useSearchParams();
   const { data, isPending } = useQuery({
@@ -35,7 +34,7 @@ function Productos() {
               className="w-full flex justify-center items-center gap-2 p-2"
             >
               <span>Agregar</span>
-              <BsFillPersonPlusFill className="text-white" />
+              <MdAddShoppingCart className="text-white" />
             </NavLink>
           </Button>
         </div>
