@@ -1,13 +1,22 @@
 import { cn } from "@/lib/utils";
-import { PropsWithChildren } from "react";
+import { ComponentProps, PropsWithChildren } from "react";
 import { FieldError, FieldErrorsImpl, Merge, UseFormRegisterReturn } from "react-hook-form";
 
 type FormFieldProps = {
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
 };
-export function FormField({ error, children }: FormFieldProps & PropsWithChildren) {
+export function FormField({
+  error,
+  children,
+  className,
+}: FormFieldProps & PropsWithChildren<ComponentProps<"div">>) {
   return (
-    <div className=" h-auto flex flex-col shrink-0 gap-1 items-start justify-center w-auto">
+    <div
+      className={cn(
+        "h-fit flex flex-col shrink-0 gap-1 items-start justify-center w-auto",
+        className
+      )}
+    >
       {children}
 
       {error && <span className="text-xs text-red-400">{error.message?.toString()}</span>}
@@ -30,22 +39,20 @@ export function Label({ name, forHtml, clasName }: LabelPropsType) {
 }
 
 type InputTypeProps = {
-  type: string;
   register: UseFormRegisterReturn;
-  placeholder: string;
-  className?: string;
-};
+} & PropsWithChildren<ComponentProps<"input">>;
 
-export function InputForm({ type, register, placeholder, className }: InputTypeProps) {
+export function InputForm({ type, register, placeholder, className, ...rest }: InputTypeProps) {
   return (
     <input
       className={cn(
-        "focus-within:outline-none  focus-within:border-2 focus-within:border-[#6fafdad8]  shadow-accent border-1  bg-gray-50 p-3.5 rounded-md ",
+        "focus-within:outline-none  focus-within:border-2 focus-within:border-[#6fafdad8] duration-300 shadow-accent border-1 transition-[color,box-shadow,border] bg-gray-50 p-3.5 rounded-md ",
         className
       )}
       type={type}
       placeholder={placeholder}
       {...register}
+      {...rest}
     />
   );
 }

@@ -13,6 +13,7 @@ import Usuarios from "@/features/usuarios/page/usuarios";
 import ErrorBoundary from "@/shared/components/error-boundary";
 import { createBrowserRouter, LoaderFunction, Navigate, redirect } from "react-router";
 
+import { ErrorElementProductsModule } from "@/features/productos/components/error-elemet.productos";
 import AgregarProductos from "@/features/productos/page/agregar-productos";
 import { getUserByIdQueryOptions } from "@/features/usuarios/hooks/users-queries";
 import AgregarUsuario from "@/features/usuarios/page/agregar-usuario";
@@ -139,6 +140,7 @@ export const router = createBrowserRouter(
         },
         {
           path: "productos",
+          errorElement: <ErrorElementProductsModule />,
           children: [
             {
               index: true,

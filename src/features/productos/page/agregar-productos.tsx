@@ -3,8 +3,8 @@ import FormProduct from "../components/form-producto";
 
 function AgregarProductos() {
   return (
-    <div>
-      <Title title="Agregar" />
+    <div className="h-full flex flex-col gap-8">
+      <Title title="Nuevo Producto" />
       <FormProduct className="" />
     </div>
   );
