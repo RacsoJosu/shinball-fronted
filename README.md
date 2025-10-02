@@ -36,22 +36,22 @@ Desarrollado por **Oscar Vallecillo** — abierto a contribuciones, ideas o feed
 
 ### 1. Clonar el repositorio
 
-\`\`\`bash
+```bash
 git clone https://github.com/RacsoJosu/Shinball-Frontend.git
 cd Shinball-Frontend
-\`\`\`
+```
 
 ### 2. Instalar dependencias
 
-\`\`\`bash
+```bash
 pnpm install
-\`\`\`
+```
 
 ### 3. Ejecutar en desarrollo
 
-\`\`\`bash
+```bash
 pnpm run dev
-\`\`\`
+```
 
 ### 4. Scripts disponibles
 
@@ -67,7 +67,7 @@ pnpm run dev
 
 ## 🗂 Estructura del proyecto
 
-\`\`\`bash
+```bash
 src/
 ├── assets/ # Imágenes, fuentes, SVGs y otros recursos
 ├── components/ # Componentes reutilizables (shadcn-ui)
@@ -86,7 +86,7 @@ src/
 ├── shared/ # Componentes o utilidades compartidas entre features
 ├── utils/ # Helpers, validaciones y funciones auxiliares
 └── main.tsx # Entrada principal de la aplicación
-\`\`\`
+```
 
 ---
 
