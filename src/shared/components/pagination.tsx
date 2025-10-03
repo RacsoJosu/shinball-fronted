@@ -32,7 +32,11 @@ export function Pagination({ totalPages }: Readonly<{ totalPages: number }>) {
         onClick={() => {
           const lastPage = Math.max(parseInt(searchParams.get("page") ?? "1", 10) - 1, 1);
 
-          setSearchParams((prev) => ({ ...prev, page: lastPage.toString() }));
+          setSearchParams((prev) => {
+            const params = new URLSearchParams(prev);
+            params.set("page", lastPage.toString());
+            return params;
+          });
         }}
         disabled={Math.max(Number(searchParams.get("page")), 1) === 1}
         type="button"

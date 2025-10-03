@@ -3,8 +3,9 @@ import { useFormContext } from "react-hook-form";
 import { Fragment } from "react/jsx-runtime";
 import { FormDwellingSchema } from "../../types/productos.types";
 
-function FormFieldDwelling() {
+function FormFieldDwelling({ isDisabled }: { isDisabled: boolean }) {
   const form = useFormContext<FormDwellingSchema>();
+
   return (
     <Fragment>
       <FormField error={form.formState.errors.city}>
@@ -13,6 +14,7 @@ function FormFieldDwelling() {
         <InputForm
           id="ciudad"
           type="text"
+          disabled={isDisabled}
           placeholder="Ciudad"
           register={form.register("city")}
           className="w-full"
@@ -24,6 +26,7 @@ function FormFieldDwelling() {
         <InputForm
           type="text"
           id="direccion"
+          disabled={isDisabled}
           placeholder="direccion"
           register={form.register("address")}
           className="w-full"
@@ -35,6 +38,7 @@ function FormFieldDwelling() {
         <InputForm
           type="text"
           id="pais"
+          disabled={isDisabled}
           placeholder="Pais"
           register={form.register("country")}
           className="w-full"
@@ -47,6 +51,7 @@ function FormFieldDwelling() {
         <InputForm
           type="text"
           id="latitude"
+          disabled={isDisabled}
           placeholder="Latitude"
           register={form.register("latitude")}
           className="w-full"
@@ -59,6 +64,7 @@ function FormFieldDwelling() {
         <InputForm
           type="text"
           id="longitude"
+          disabled={isDisabled}
           placeholder="Longitude"
           register={form.register("longitude")}
           className="w-full"

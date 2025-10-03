@@ -45,13 +45,14 @@ type InputTypeProps = {
 export function InputForm({ type, register, placeholder, className, ...rest }: InputTypeProps) {
   return (
     <input
+      {...register}
       className={cn(
         "focus-within:outline-none  focus-within:border-2 focus-within:border-[#6fafdad8] duration-300 shadow-accent border-1 transition-[color,box-shadow,border] bg-gray-50 p-3.5 rounded-md ",
-        className
+        className,
+        rest.disabled && "bg-gray-100/20 text-gray-400 hover:none"
       )}
       type={type}
       placeholder={placeholder}
-      {...register}
       {...rest}
     />
   );

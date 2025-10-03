@@ -1,4 +1,6 @@
 import axiosInstance, { ApiSuccessResponse } from "@/lib/axios";
+import z from "zod";
+import { propertySchema } from "../schemas/products.schema";
 import { ISearchParams } from "../types/productos.types";
 interface Dwelling {
   id: string;
@@ -41,4 +43,8 @@ export async function getAllProductos(params: ISearchParams) {
       search: params.search ? params.search : undefined,
     },
   });
+}
+
+export async function addProductoService(body: z.infer<typeof propertySchema>) {
+  return axiosInstance.post<ApiSuccessResponse<null>>(`properties`, body);
 }
