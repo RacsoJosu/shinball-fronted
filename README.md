@@ -1,7 +1,6 @@
 # 🏠 Shinball Frontend
 
-**Shinball Admin** es una aplicación para la administracion de **usuarios, dashboard, propiedades y vehículos** , construida con tecnologías modernas de React y optimizada para rendimiento y escalabilidad.
-
+**Shinball Admin** es una aplicación para la administracion de **usuarios, dashboard, propiedades y vehículos**
 ---
 
 ## 🧑‍💻 Autor
