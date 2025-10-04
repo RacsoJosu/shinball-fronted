@@ -14,6 +14,7 @@ function FormFieldDwelling({ isDisabled }: { isDisabled: boolean }) {
         <InputForm
           id="ciudad"
           type="text"
+          autoComplete="new-password"
           disabled={isDisabled}
           placeholder="Ciudad"
           register={form.register("city")}
@@ -26,6 +27,7 @@ function FormFieldDwelling({ isDisabled }: { isDisabled: boolean }) {
         <InputForm
           type="text"
           id="direccion"
+          autoComplete="new-password"
           disabled={isDisabled}
           placeholder="direccion"
           register={form.register("address")}
@@ -38,6 +40,7 @@ function FormFieldDwelling({ isDisabled }: { isDisabled: boolean }) {
         <InputForm
           type="text"
           id="pais"
+          autoComplete="new-password"
           disabled={isDisabled}
           placeholder="Pais"
           register={form.register("country")}
@@ -51,6 +54,7 @@ function FormFieldDwelling({ isDisabled }: { isDisabled: boolean }) {
         <InputForm
           type="text"
           id="latitude"
+          autoComplete="new-password"
           disabled={isDisabled}
           placeholder="Latitude"
           register={form.register("latitude")}
@@ -64,6 +68,7 @@ function FormFieldDwelling({ isDisabled }: { isDisabled: boolean }) {
         <InputForm
           type="text"
           id="longitude"
+          autoComplete="new-password"
           disabled={isDisabled}
           placeholder="Longitude"
           register={form.register("longitude")}

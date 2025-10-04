@@ -37,6 +37,7 @@ function FormFieldsVehicles({ isDisabled }: { isDisabled: boolean }) {
         <InputForm
           type="text"
           disabled={isDisabled}
+          autoComplete="false"
           id="brand"
           placeholder="Marca"
           register={form.register("brand")}
@@ -49,6 +50,7 @@ function FormFieldsVehicles({ isDisabled }: { isDisabled: boolean }) {
         <InputForm
           type="text"
           disabled={isDisabled}
+          autoComplete="false"
           id="model"
           placeholder="Modelo"
           register={form.register("model")}

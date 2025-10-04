@@ -71,6 +71,7 @@ function FormUser({
 
           <InputForm
             type="text"
+            autoComplete="new-first-name"
             placeholder="Joe"
             register={form.register("firstName")}
             className="w-full"
@@ -80,6 +81,7 @@ function FormUser({
           <Label forHtml="apellido" name="Apellidos" clasName="" key={"apellido"} />
           <InputForm
             type="text"
+            autoComplete="new-last-name"
             placeholder="Doe"
             register={form.register("lastName")}
             className=" w-full"
@@ -91,6 +93,7 @@ function FormUser({
           <InputForm
             className="w-full"
             type="email"
+            autoComplete="new-email"
             placeholder="prueba@email.com"
             register={form.register("email")}
           />
@@ -109,6 +112,7 @@ function FormUser({
           <InputForm
             className="w-full"
             type="password"
+            autoComplete="new-password"
             placeholder="Escribe la contraseña"
             register={form.register("password")}
           />
@@ -122,6 +126,7 @@ function FormUser({
           />
           <InputForm
             className="w-full"
+            autoComplete="confrimar-pasword"
             type="password"
             placeholder="Confirma la contraseña"
             register={form.register("passwordConfirmation")}

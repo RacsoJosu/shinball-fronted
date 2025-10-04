@@ -73,6 +73,7 @@ function FormProduct({ className }: { className: string }) {
             <InputForm
               id="descripcion"
               type="text"
+              autoComplete="new-password"
               disabled={addProductoMutation.isPending}
               placeholder="Descripcion"
               register={form.register("description")}
@@ -86,6 +87,7 @@ function FormProduct({ className }: { className: string }) {
             <InputForm
               type="text"
               id="capacidad"
+              autoComplete="new-capacidad"
               disabled={addProductoMutation.isPending}
               placeholder="Capacidad"
               onInput={(e) => {
@@ -108,10 +110,6 @@ function FormProduct({ className }: { className: string }) {
               `items-center w-full md:w-[300px]`,
               addProductoMutation.isPending && "bg-gray-300 text-gray-400 hover:none"
             )}
-            //  ${
-            // false ? "bg-gray-300 text-gray-400 hover:none" : ""
-            // }
-
             disabled={addProductoMutation.isPending}
           >
             {"Agregar"}
