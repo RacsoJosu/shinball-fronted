@@ -23,5 +23,5 @@ export function ErrorElementUsersModule() {
     }
   }
 
-  return <Navigate to="/dashboard" />;
+  return <Navigate to="/" />;
 }

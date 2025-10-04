@@ -4,7 +4,7 @@ import { Button } from "./button";
 function ErrorPage() {
   const location = useLocation();
   if (location.pathname === "/") {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/" />;
   }
 
   return (

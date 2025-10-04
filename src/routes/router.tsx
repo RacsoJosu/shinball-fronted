@@ -5,7 +5,6 @@ import { lazy, LazyExoticComponent, Suspense } from "react";
 import { IconType } from "react-icons";
 import { HiUsers } from "react-icons/hi2";
 import { IoMdCart } from "react-icons/io";
-import { MdSpaceDashboard } from "react-icons/md";
 
 import Informacion from "@/features/usuarios/page/perfil/informacion";
 import Perfil from "@/features/usuarios/page/perfil/perfil.page";
@@ -18,7 +17,6 @@ import AgregarProductos from "@/features/productos/page/agregar-productos";
 import { getUserByIdQueryOptions } from "@/features/usuarios/hooks/users-queries";
 import AgregarUsuario from "@/features/usuarios/page/agregar-usuario";
 import Editar from "@/features/usuarios/page/editar";
-import Account from "@/features/usuarios/page/perfil/account";
 import { queryClient } from "@/providers/query-client";
 import RootLoader from "@/root-loader";
 import NotFound from "@/shared/components/not-found";
@@ -26,7 +24,7 @@ import Productos from "../features/productos/page/productos";
 import { ErrorElementUsersModule } from "./users-routes";
 // import { loaderUsers } from "@/features/usuarios/loader/usuarios-loader";
 
-const Dashboard = lazy(() => import("../features/dashboard/page/dashboard"));
+// const Dashboard = lazy(() => import("../features/dashboard/page/dashboard"));
 // const Productos = lazy(() => import("../features/productos/page/productos"));
 // const RootLayout = lazy(() => import("../layout"));
 
@@ -53,22 +51,22 @@ interface Route {
 }
 
 export const routes: Route[] = [
-  {
-    Component: Dashboard,
+  // {
+  //   Component: Dashboard,
 
-    to: "/dashboard",
-    name: "Dashboard",
-    path: "dashboard",
-    Icon: MdSpaceDashboard,
-    index: true,
-  },
+  //   to: "/dashboard",
+  //   name: "Dashboard",
+  //   path: "dashboard",
+  //   Icon: MdSpaceDashboard,
+  //   index: true,
+  // },
   {
     Component: Usuarios,
     to: "/usuarios",
     name: "Usuarios",
     path: "usuarios",
     Icon: HiUsers,
-    index: false,
+    index: true,
   },
   {
     Component: Productos,
@@ -102,13 +100,13 @@ export const router = createBrowserRouter(
       children: [
         {
           path: "/",
-          element: <Navigate to={"/dashboard"} />,
+          element: <Navigate to={"/usuarios"} />,
         },
-        {
-          index: true,
-          path: "dashboard",
-          element: lazyLoad(Dashboard),
-        },
+        // {
+        //   index: true,
+        //   path: "dashboard",
+        //   element: lazyLoad(Dashboard),
+        // },
         {
           path: "usuarios/*",
           errorElement: <ErrorElementUsersModule />,
@@ -160,10 +158,10 @@ export const router = createBrowserRouter(
               index: true,
               element: <Informacion />,
             },
-            {
-              path: "cuenta",
-              element: <Account />,
-            },
+            // {
+            //   path: "cuenta",
+            //   element: <Account />,
+            // },
           ],
         },
       ],

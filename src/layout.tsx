@@ -115,7 +115,7 @@ function RootLayout() {
                   gap: "4px",
                 }}
                 className={({ isActive }) =>
-                  isActive || (to === "/dashboard" && location.pathname === "/")
+                  isActive || (to === "/usuarios" && location.pathname === "/")
                     ? " bg-gray-200  text-sky-800 font-semibold border-e-6 "
                     : ""
                 }

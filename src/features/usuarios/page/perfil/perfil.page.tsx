@@ -21,9 +21,9 @@ function Perfil() {
           <TabsTrigger onClick={() => onChangeTab("")} value={"perfil"} className="">
             Informacion
           </TabsTrigger>
-          <TabsTrigger onClick={() => onChangeTab("cuenta")} className="" value="cuenta">
+          {/* <TabsTrigger onClick={() => onChangeTab("cuenta")} className="" value="cuenta">
             Cuenta
-          </TabsTrigger>
+          </TabsTrigger> */}
         </TabsList>
       </div>
       <Outlet />

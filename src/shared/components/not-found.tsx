@@ -4,7 +4,7 @@ import { Button } from "./button";
 function NotFound() {
   const location = useLocation();
   if (location.pathname === "/") {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/" />;
   }
   return (
     <div className="h-screen w-screen bg-cover sm:bg-[auto_700px] bg-no-repeat bg-center bg-fixed bg-[url(@assets/404_Error.svg)]">
@@ -17,7 +17,7 @@ function NotFound() {
         <div className=" cursor-pointer  flex flex-col items-center justify-end basis-1/5">
           <Button className={"max-w-[90px] text-sm"} type="button">
             <NavLink
-              to={"/dashboard"}
+              to={"/"}
               className={({ isActive }) =>
                 isActive ? " bg-gray-200 text-sky-800 font-semibold border-e-6 " : ""
               }
