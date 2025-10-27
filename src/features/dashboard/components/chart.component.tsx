@@ -23,8 +23,9 @@ const chartData = Array.from({ length: 90 }, (_, i) => {
   const date = subDays(new Date("2024-06-30"), 89 - i);
   return {
     date: format(date, "yyyy-MM-dd"),
-    reservas: Math.floor(100 + Math.random() * 400),
-    usuarios: Math.floor(50 + Math.random() * 250),
+    // sonarjs-suppress S2245: Uso de Math.random() es intencional para datos simulados
+    reservas: Math.floor(Math.random() * (400 - 200 + 1)) + 200, //NOSONAR
+    usuarios: Math.floor(Math.random() * (400 - 200 + 1)) + 200, //NOSONAR
   };
 });
 
