@@ -20,7 +20,7 @@ export function useSignUpMutation() {
     mutationFn: signUp,
     onSuccess: ({ data }) => {
       toast.success(data.message);
-      navigate("/usuarios");
+      navigate("/");
     },
   });
 }

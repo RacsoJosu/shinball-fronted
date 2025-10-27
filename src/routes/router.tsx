@@ -101,7 +101,7 @@ export const router = createBrowserRouter(
       children: [
         {
           path: "/",
-          element: <Navigate to={"/usuarios"} />,
+          element: <Navigate to={"/dashboard"} />,
         },
         {
           index: true,

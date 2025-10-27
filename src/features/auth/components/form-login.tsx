@@ -42,7 +42,7 @@ function FormLogin() {
         onSuccess: ({ data }) => {
           auth.setToken(data.data);
           toast.success("Login realizado correctamente");
-          navigate("/usuarios");
+          navigate("/");
         },
       }
     );

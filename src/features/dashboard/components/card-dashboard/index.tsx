@@ -5,7 +5,7 @@ function CardDashboard({ className, children, ...rest }: PropsWithChildren<Compo
   return (
     <div
       className={cn(
-        "flex flex-col space-y-3 shadow-md border-1  rounded-md p-6 min-h-[300px]",
+        "flex flex-col space-y-3 shadow-md border-1  rounded-md p-6 min-h-[200px]",
         className
       )}
       {...rest}
