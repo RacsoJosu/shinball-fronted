@@ -20,11 +20,12 @@ import Editar from "@/features/usuarios/page/editar";
 import { queryClient } from "@/providers/query-client";
 import RootLoader from "@/root-loader";
 import NotFound from "@/shared/components/not-found";
+import { MdSpaceDashboard } from "react-icons/md";
 import Productos from "../features/productos/page/productos";
 import { ErrorElementUsersModule } from "./users-routes";
 // import { loaderUsers } from "@/features/usuarios/loader/usuarios-loader";
 
-// const Dashboard = lazy(() => import("../features/dashboard/page/dashboard"));
+const Dashboard = lazy(() => import("../features/dashboard/page/dashboard"));
 // const Productos = lazy(() => import("../features/productos/page/productos"));
 // const RootLayout = lazy(() => import("../layout"));
 
@@ -51,15 +52,15 @@ interface Route {
 }
 
 export const routes: Route[] = [
-  // {
-  //   Component: Dashboard,
+  {
+    Component: Dashboard,
 
-  //   to: "/dashboard",
-  //   name: "Dashboard",
-  //   path: "dashboard",
-  //   Icon: MdSpaceDashboard,
-  //   index: true,
-  // },
+    to: "/dashboard",
+    name: "Dashboard",
+    path: "dashboard",
+    Icon: MdSpaceDashboard,
+    index: true,
+  },
   {
     Component: Usuarios,
     to: "/usuarios",
@@ -102,11 +103,11 @@ export const router = createBrowserRouter(
           path: "/",
           element: <Navigate to={"/usuarios"} />,
         },
-        // {
-        //   index: true,
-        //   path: "dashboard",
-        //   element: lazyLoad(Dashboard),
-        // },
+        {
+          index: true,
+          path: "dashboard",
+          element: lazyLoad(Dashboard),
+        },
         {
           path: "usuarios/*",
           errorElement: <ErrorElementUsersModule />,
