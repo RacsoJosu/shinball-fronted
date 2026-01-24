@@ -18,3 +18,16 @@ export function getUserByIdQueryOptions(idUser: string) {
     queryFn: () => getUserById(idUser),
   });
 }
+
+export const suspenseTestQuery = queryOptions({
+  queryKey: ["suspense-test"],
+  queryFn: async () => {
+    const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+    await sleep(5000);
+
+    return {
+      message: "Datos cargados después de 5 segundos",
+      timestamp: new Date().toISOString(),
+    };
+  },
+});

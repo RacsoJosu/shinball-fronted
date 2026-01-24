@@ -17,6 +17,7 @@ import AgregarProductos from "@/features/productos/page/agregar-productos";
 import { getUserByIdQueryOptions } from "@/features/usuarios/hooks/users-queries";
 import AgregarUsuario from "@/features/usuarios/page/agregar-usuario";
 import Editar from "@/features/usuarios/page/editar";
+import Account from "@/features/usuarios/page/perfil/account";
 import { queryClient } from "@/providers/query-client";
 import RootLoader from "@/root-loader";
 import NotFound from "@/shared/components/not-found";
@@ -152,17 +153,21 @@ export const router = createBrowserRouter(
           ],
         },
         {
-          element: <Perfil />,
+          element: (
+            <Suspense fallback={<RootLoader />}>
+              <Perfil />
+            </Suspense>
+          ),
           path: "perfil",
           children: [
             {
               index: true,
               element: <Informacion />,
             },
-            // {
-            //   path: "cuenta",
-            //   element: <Account />,
-            // },
+            {
+              path: "cuenta",
+              element: <Account />,
+            },
           ],
         },
       ],

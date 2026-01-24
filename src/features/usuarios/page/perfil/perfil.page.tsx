@@ -15,15 +15,15 @@ function Perfil() {
   }
 
   return (
-    <Tabs defaultValue={currentLocation} className="w-full">
+    <Tabs defaultValue={""} value={currentLocation} className="w-full">
       <div className="flex w-full flex-row-reverse">
         <TabsList className="rounded-none    rounded-t-sm   h-12 justify-end bg-white">
           <TabsTrigger onClick={() => onChangeTab("")} value={"perfil"} className="">
             Informacion
           </TabsTrigger>
-          {/* <TabsTrigger onClick={() => onChangeTab("cuenta")} className="" value="cuenta">
+          <TabsTrigger onClick={() => onChangeTab("cuenta")} className="" value="cuenta">
             Cuenta
-          </TabsTrigger> */}
+          </TabsTrigger>
         </TabsList>
       </div>
       <Outlet />

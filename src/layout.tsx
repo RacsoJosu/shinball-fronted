@@ -12,7 +12,7 @@ import { PropsWithChildren, useEffect, useState } from "react";
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { SlOptionsVertical } from "react-icons/sl";
-import { Navigate, NavLink, Outlet, useLocation, useNavigate, useNavigation } from "react-router";
+import { Navigate, NavLink, Outlet, useLocation, useNavigate } from "react-router";
 import { useLogoutMutation } from "./features/auth/hooks/auth-hooks";
 import { getAuthQueryOptions } from "./features/auth/hooks/auth-queries";
 import { cn } from "./lib/utils";
@@ -35,7 +35,6 @@ function RootLayoutWrapper() {
 }
 
 function RootLayout() {
-  const navigation = useNavigation();
   const location = useLocation();
 
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -136,12 +135,12 @@ function RootLayout() {
           ))}
         </ul>
       </nav>
-      <main className="flex flex-col w-full flex-1 overflow-hidden ">
-        <header className="bg-gray-100 px-2 flex flex-row-reverse flex-wrap items-center  shadow-gray-200 border-l-2 shadow-sm min-h-auto">
+      <main className="flex flex-col w-full flex-1 overflow-hidden">
+        <header className="bg-gray-100 px-2 flex flex-row-reverse items-center shadow-sm shadow-gray-200 border-l-2 min-h-10">
           <DropdownMenuProfile />
         </header>
-        <div className="flex-1 overflow-y-auto pl-12 pr-12 pb-12     mt-4">
-          {navigation.state === "loading" ? <RootLoader /> : <Outlet />}
+        <div className="flex-1 overflow-y-auto px-12 pb-12 mt-4">
+          <Outlet />
         </div>
       </main>
     </div>
